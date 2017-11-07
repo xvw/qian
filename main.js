@@ -7,8 +7,8 @@ app.on('ready', createWindow)
 
 function createWindow () {
   mainWindow = new BrowserWindow({
-    width: 1024, 
-    height: 768
+    width: 820, 
+    height: 480
   })
 
   mainWindow.loadURL(`file://${ __dirname }/static/index.html`)
@@ -18,10 +18,5 @@ function createWindow () {
   })
 }
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') { app.quit() }
-})
-
-app.on('activate', () => {
-  if (mainWindow === null) { createWindow() }
-})
+app.on('window-all-closed', () => { app.quit() })
+app.on('activate', () => { if (mainWindow === null) { createWindow() } })

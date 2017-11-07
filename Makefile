@@ -2,7 +2,7 @@
 
 all: run
 
-build: install
+build:
 	webpack
 
 run: build
