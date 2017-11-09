@@ -1,15 +1,38 @@
 module Main exposing (..)
 
-import Html exposing (program)
-import Dispatcher exposing (Message(..), Model)
+import Html exposing (programWithFlags)
+import Architecture exposing (Message(..), Model, Flags)
+import Action exposing (changeDirectory)
 import View exposing (global)
+import Zipper.History as History
 
 
-main : Platform.Program Never Model Message
+init : Flags -> ( Model, Cmd Message )
+init flags =
+    ( { pwd = flags.pwd
+      , history = History.new ()
+      }
+    , Cmd.none
+    )
+
+
+subscriptions : Model -> Sub Message
+subscriptions model =
+    Sub.none
+
+
+update : Message -> Model -> ( Model, Cmd Message )
+update message model =
+    case message of
+        Cd newPwd ->
+            Action.changeDirectory model newPwd
+
+
+main : Platform.Program Flags Model Message
 main =
-    program
-        { init = ( Nothing, Cmd.none )
-        , update = (\m x -> ( x, Cmd.none ))
+    programWithFlags
+        { init = init
+        , update = update
         , view = global
-        , subscriptions = (\_ -> Sub.none)
+        , subscriptions = subscriptions
         }

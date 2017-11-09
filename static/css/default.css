@@ -40,12 +40,83 @@
   font-family: 'Ubuntu Mono', monospace;
 }
 
-.pan {
-  background-color: #313440
-}
-
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #262831;
+  background-color: #313440;
   color: #9EA1B3;
+  padding: 0;
+  margin: 0;
+}
+
+#app > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: 12px;
+}
+
+header, footer {
+  padding: 4px;
+  background-color: #262831;
+}
+
+footer {
+  display: flex;
+}
+
+
+
+footer input[type="text"] {
+  border-style: none;
+  background-color: transparent;
+  color: #9EA1B3;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 120%;
+  padding: 2px;
+  flex: 6;
+}
+
+footer input[type="text"]:focus {
+  outline: none;
+}
+
+footer div {
+  margin: auto;
+  padding-left: 8px;
+}
+
+footer div i {
+  margin-right: 4px;
+}
+
+footer div i.enabled {
+  color: #9EA1B3;
+}
+
+footer div i.disabled {
+  color: #464A5A;
+}
+
+.breadcrumb {
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb > li{
+  display: inline-block;
+  list-style: none;
+  margin: 0 4px;
+}
+
+.breadcrumb > li > a {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.breadcrumb > li > a:hover {
+  color: #F68479;
 }

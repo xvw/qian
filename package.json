@@ -9,6 +9,15 @@
   "author": "xvw",
   "license": "MIT",
   "dependencies": {
+    "electron": "^1.7.9",
     "elm-webpack-loader": "^4.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "electron-packager": "^9.1.0",
+    "electron-prebuilt": "^1.4.13",
+    "electron-rebuild": "^1.6.0"
   }
 }

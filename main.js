@@ -1,13 +1,13 @@
-'use strict'
 const electron = require('electron')
-const app = electron.app 
+
+const app = electron.app
 const BrowserWindow = electron.BrowserWindow
+
 let mainWindow
-app.on('ready', createWindow) 
 
 function createWindow () {
   mainWindow = new BrowserWindow({
-    width: 820, 
+    width: 820,
     height: 480
   })
 
@@ -18,5 +18,6 @@ function createWindow () {
   })
 }
 
+app.on('ready', createWindow)
 app.on('window-all-closed', () => { app.quit() })
 app.on('activate', () => { if (mainWindow === null) { createWindow() } })
