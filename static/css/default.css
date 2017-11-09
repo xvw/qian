@@ -57,11 +57,15 @@ body {
 main {
   flex: 1;
   padding: 12px;
+  overflow: auto;
 }
 
 header, footer {
-  padding: 4px;
   background-color: #262831;
+}
+
+footer {
+  padding: 4px;
 }
 
 footer {
@@ -93,23 +97,29 @@ footer div i {
   margin-right: 4px;
 }
 
-footer div i.enabled {
+i.enabled {
   color: #9EA1B3;
 }
 
-footer div i.disabled {
+i.disabled {
   color: #464A5A;
 }
 
+footer div i.enabled {
+  cursor: pointer;
+}
+
+
 .breadcrumb {
-  padding: 0;
+  padding: 4px;
   margin: 0;
+  background-color: black;
+  font-family: 'Ubuntu Mono', monospace;
 }
 
 .breadcrumb > li{
   display: inline-block;
   list-style: none;
-  margin: 0 4px;
 }
 
 .breadcrumb > li > a {
@@ -117,6 +127,46 @@ footer div i.disabled {
   transition: color 0.3s;
 }
 
+.breadcrumb > li > a > span {
+  color: #262831;
+}
+
 .breadcrumb > li > a:hover {
   color: #F68479;
+}
+
+.toolbox {
+  padding: 4px;
+}
+
+.toolbox i {
+  margin-left: 6px;
+}
+
+.toolbox  a {
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.toolbox  a:hover {
+  color: #EDDC96;
+}
+
+.tree-elt {
+  cursor: pointer;
+}
+
+
+.tree-elt i {
+  margin-right: 6px;
+  color: #63677E;
+}
+
+.folder i{
+  color: #63677E;
+}
+
+.not-folder i{
+  color: #F2F2F2;
 }

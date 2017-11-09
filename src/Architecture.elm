@@ -3,25 +3,27 @@ module Architecture
         ( Message(..)
         , Model
         , Flags
-        , Pwd
         )
 
 import Zipper.History exposing (History)
-
-
-type alias Pwd =
-    List String
+import File exposing (Tree, Path)
 
 
 type alias Flags =
-    { pwd : Pwd }
+    { pwd : Path
+    , home : Path
+    }
 
 
 type Message
-    = Cd Pwd
+    = ChangeDirectory Path
+    | Backward
+    | Forward
+    | GetDirTree Tree
 
 
 type alias Model =
-    { pwd : Pwd
-    , history : History Pwd
+    { history : History Path
+    , home : Path
+    , tree : Tree
     }

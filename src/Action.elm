@@ -1,24 +1,18 @@
 module Action
     exposing
-        ( changeDirectory
+        ( changeHistory
         )
 
-import Zipper.History as History
-import Architecture exposing (Model, Message(..), Pwd)
+import Zipper.History exposing (History)
+import Architecture exposing (Model, Message(..))
+import File exposing (Path)
+import Port
 
 
-changeDirectory : Model -> Pwd -> ( Model, Cmd Message )
-changeDirectory model newPwd =
+changeHistory : Model -> (History Path -> History Path) -> ( Model, Cmd Message )
+changeHistory model f =
     let
-        history =
-            model.history
-
-        pwd =
-            model.pwd
+        newModel =
+            { model | history = f model.history }
     in
-        ( { model
-            | pwd = newPwd
-            , history = History.push history pwd
-          }
-        , Cmd.none
-        )
+        ( newModel, Port.ls newModel.history.present )

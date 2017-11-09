@@ -1,6 +1,6 @@
 module View exposing (global)
 
-import Architecture exposing (Model, Message(..), Pwd)
+import Architecture exposing (Model, Message(..))
 import Html
     exposing
         ( Html
@@ -20,6 +20,7 @@ import Html
 import Html.Attributes as Attr
 import Html.Events exposing (onClick)
 import Zipper.History as History
+import File exposing (File, Tree, Path)
 
 
 fa : String -> List String -> List (Attribute msg)
@@ -38,30 +39,83 @@ fa icon otherClasses =
 global : Model -> Html Message
 global model =
     div []
-        [ header [] (makeHeader model)
-        , main_ [] [ text "content" ]
+        [ header []
+            [ makeToolbox model
+            , makeHeader model
+            ]
+        , main_ [] (makeContent model)
         , footer [] (makeFooter model)
         ]
 
 
-makeHeader : Model -> List (Html Message)
+makeToolbox : Model -> Html Message
+makeToolbox model =
+    let
+        linkHome =
+            if model.history.present == model.home then
+                i (fa "home" [ "disabled" ]) []
+            else
+                a
+                    [ onClick (ChangeDirectory model.home) ]
+                    [ i (fa "home" []) [] ]
+
+        linkRoot =
+            if model.history.present == [ "" ] then
+                i (fa "hdd-o" [ "disabled" ]) []
+            else
+                a
+                    [ onClick (ChangeDirectory [ "" ]) ]
+                    [ i (fa "hdd-o" []) [] ]
+    in
+        div
+            [ Attr.class "toolbox" ]
+            [ linkRoot
+            , linkHome
+            ]
+
+
+makeContent : Model -> List (Html Message)
+makeContent model =
+    model.tree
+        |> File.purgeHidden
+        |> List.map (renderItem model.history.present)
+
+
+renderItem : Path -> File -> Html Message
+renderItem pwd element =
+    let
+        ( attr, icon ) =
+            if element.isDirectory then
+                ( [ Attr.class "tree-elt folder"
+                  , onClick (ChangeDirectory (pwd ++ [ element.name ]))
+                  ]
+                , i (fa "folder" []) []
+                )
+            else
+                ( [ Attr.class "tree-elt not-folder" ], i (fa "file" []) [] )
+    in
+        div
+            attr
+            [ icon, text element.name ]
+
+
+makeHeader : Model -> Html Message
 makeHeader model =
-    [ ul
+    ul
         [ Attr.class "breadcrumb" ]
-        ((makeBreadcrumb model model.pwd [] [])
+        ((makeBreadcrumb model model.history.present [] [])
             |> List.reverse
         )
-    ]
 
 
-makeBreadcrumb : Model -> Pwd -> Pwd -> List (Html Message) -> List (Html Message)
+makeBreadcrumb : Model -> Path -> Path -> List (Html Message) -> List (Html Message)
 makeBreadcrumb model pwd marked acc =
     case pwd of
         [] ->
             acc
 
         [ elt ] ->
-            (li [] [ (renderCrumb elt) ]) :: acc
+            (li [] (renderCrumb "" elt)) :: acc
 
         x :: xs ->
             let
@@ -75,43 +129,50 @@ makeBreadcrumb model pwd marked acc =
                     ((clickableCrumb path x) :: acc)
 
 
-renderCrumb : String -> Html Message
-renderCrumb folder =
-    if String.isEmpty folder then
-        i (fa "hdd-o" []) []
-    else
-        text folder
+renderCrumb : String -> String -> List (Html Message)
+renderCrumb sep folder =
+    let
+        content =
+            if String.isEmpty folder then
+                text "Root"
+            else
+                text folder
+    in
+        [ content, span [] [ text sep ] ]
 
 
-clickableCrumb : Pwd -> String -> Html Message
+clickableCrumb : Path -> String -> Html Message
 clickableCrumb pwd folder =
     li
         []
-        [ a [ onClick (Cd pwd) ] [ renderCrumb folder ] ]
+        [ a
+            [ onClick (ChangeDirectory pwd) ]
+            (renderCrumb "/" folder)
+        ]
 
 
 backButton : Model -> Html Message
 backButton model =
     let
-        class =
+        ( class, message ) =
             if History.hasPast model.history then
-                [ "enabled" ]
+                ( [ "enabled" ], [ onClick Backward ] )
             else
-                [ "disabled" ]
+                ( [ "disabled" ], [] )
     in
-        i (fa "arrow-circle-left" class) []
+        i ((fa "arrow-circle-left" class) ++ message) []
 
 
 nextButton : Model -> Html Message
 nextButton model =
     let
-        class =
+        ( class, message ) =
             if History.hasFuture model.history then
-                [ "enabled" ]
+                ( [ "enabled" ], [ onClick Forward ] )
             else
-                [ "disabled" ]
+                ( [ "disabled" ], [] )
     in
-        i (fa "arrow-circle-right" class) []
+        i ((fa "arrow-circle-right" class) ++ message) []
 
 
 makeFooter : Model -> List (Html Message)

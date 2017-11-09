@@ -3,7 +3,6 @@ module Zipper.History
         ( History
         , new
         , push
-        , pop
         , present
         , backward
         , forward
@@ -14,45 +13,38 @@ module Zipper.History
 
 type alias History a =
     { past : List a
+    , present : a
     , future : List a
     }
 
 
-new : () -> History a
-new () =
+new : a -> History a
+new data =
     { past = []
+    , present = data
     , future = []
     }
 
 
 push : History a -> a -> History a
 push zipper data =
-    { past = data :: zipper.past, future = [] }
+    { past = zipper.present :: zipper.past
+    , present = data
+    , future = []
+    }
 
 
 rewrite : History a -> a -> History a
 rewrite zipper data =
-    { zipper | past = data :: zipper.past }
+    { zipper
+        | past = zipper.present :: zipper.past
+        , present = data
+    }
 
 
-present : History a -> Maybe a
+present : History a -> a
 present zipper =
-    case zipper.past of
-        [] ->
-            Nothing
-
-        x :: _ ->
-            Just x
-
-
-pop : History a -> ( Maybe a, History a )
-pop zipper =
-    case zipper.past of
-        [] ->
-            ( Nothing, zipper )
-
-        x :: xs ->
-            ( Just x, { zipper | past = xs } )
+    zipper.present
 
 
 backward : History a -> History a
@@ -62,7 +54,10 @@ backward zipper =
             zipper
 
         x :: xs ->
-            { past = xs, future = x :: zipper.future }
+            { past = xs
+            , present = x
+            , future = zipper.present :: zipper.future
+            }
 
 
 forward : History a -> History a
@@ -72,7 +67,10 @@ forward zipper =
             zipper
 
         x :: xs ->
-            { past = x :: zipper.past, future = xs }
+            { past = zipper.present :: zipper.past
+            , present = x
+            , future = xs
+            }
 
 
 hasPast : History a -> Bool
