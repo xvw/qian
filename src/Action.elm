@@ -1,6 +1,7 @@
 module Action
     exposing
         ( changeHistory
+        , toggleHidden
         )
 
 import Zipper.History exposing (History)
@@ -16,3 +17,8 @@ changeHistory model f =
             { model | history = f model.history }
     in
         ( newModel, Port.ls newModel.history.present )
+
+
+toggleHidden : Model -> ( Model, Cmd Message )
+toggleHidden model =
+    ( { model | showHidden = not model.showHidden }, Cmd.none )

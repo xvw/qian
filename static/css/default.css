@@ -97,11 +97,11 @@ footer div i {
   margin-right: 4px;
 }
 
-i.enabled {
+.enabled {
   color: #9EA1B3;
 }
 
-i.disabled {
+.disabled {
   color: #464A5A;
 }
 
@@ -109,6 +109,11 @@ footer div i.enabled {
   cursor: pointer;
 }
 
+
+.history-buttons {
+  text-align: right;
+  padding-right: 16px;
+}
 
 .breadcrumb {
   padding: 4px;
@@ -127,34 +132,48 @@ footer div i.enabled {
   transition: color 0.3s;
 }
 
-.breadcrumb > li > a > span {
-  color: #262831;
-}
-
 .breadcrumb > li > a:hover {
   color: #F68479;
 }
 
+.breadcrumb > .current {
+  color: #97ecc5;
+}
+
 .toolbox {
   padding: 4px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.toolbox > div {
+  flex: 1;
+  margin: auto;
 }
 
 .toolbox i {
   margin-left: 6px;
 }
 
-.toolbox  a {
+.toolbox a > i {
   cursor: pointer;
-  text-decoration: none;
   transition: color 0.3s;
 }
 
-.toolbox  a:hover {
-  color: #EDDC96;
+.toolbox a:hover > i {
+  color: white;
 }
 
 .tree-elt {
+  padding: 2px 8px;
   cursor: pointer;
+  transition: color 0.1s;
+  display: block;
+}
+
+.tree-elt:hover {
+  color: #FECF5A;
 }
 
 

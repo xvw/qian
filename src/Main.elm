@@ -13,6 +13,7 @@ init flags =
     ( { history = History.new flags.pwd
       , home = flags.home
       , tree = []
+      , showHidden = False
       }
     , Port.ls flags.pwd
     )
@@ -35,6 +36,9 @@ update message model =
 
         Forward ->
             Action.changeHistory model History.forward
+
+        ToggleHidden ->
+            Action.toggleHidden model
 
         GetDirTree tree ->
             ( { model | tree = tree }, Cmd.none )

@@ -19,6 +19,7 @@ type Message
     = ChangeDirectory Path
     | Backward
     | Forward
+    | ToggleHidden
     | GetDirTree Tree
 
 
@@ -26,4 +27,5 @@ type alias Model =
     { history : History Path
     , home : Path
     , tree : Tree
+    , showHidden : Bool
     }
