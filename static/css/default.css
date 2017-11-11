@@ -168,12 +168,11 @@ footer div i.enabled {
 .tree-elt {
   padding: 2px 8px;
   cursor: pointer;
-  transition: color 0.1s;
   display: block;
 }
 
 .tree-elt:hover {
-  color: #FECF5A;
+  color: white;
 }
 
 
@@ -184,6 +183,14 @@ footer div i.enabled {
 
 .folder i{
   color: #63677E;
+}
+
+.parent {
+  color: #464A5A;
+}
+
+.parent:hover {
+  color: #97ecc5;
 }
 
 .not-folder i{
