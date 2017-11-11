@@ -46,7 +46,12 @@ parentFolder model =
         _ :: xs ->
             let
                 path =
-                    List.reverse xs
+                    case xs of
+                        [ "" ] ->
+                            [ "Root" ]
+
+                        _ ->
+                            List.reverse xs
 
                 message =
                     ChangeDirectory path
