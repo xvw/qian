@@ -2,6 +2,7 @@ import Electron from 'electron'
 import Path from 'path'
 import Elm from '../../src/Main.elm'
 import * as Qian from './qian.js'
+import fs from 'fs'
 
 const remote = Electron.remote
 const app = remote.app
@@ -14,8 +15,17 @@ const elmApp = Elm.Main.embed(container, {
 , home: homeSplitted
 });
 
+let watcher
+
 elmApp.ports.ls.subscribe((pwd) => {
-  const list = Qian.ls(pwd)
+  const path = Qian.resolvePath(pwd)
+  const list = Qian.ls(path)
+  if (watcher) {
+    watcher.close()
+  }
+  watcher = fs.watch(path, { encoding: 'buffer' }, (et, fn) => {
+    elmApp.ports.treeMutation.send(true)
+  })
   elmApp.ports.getDirTree.send(list)
 });
 

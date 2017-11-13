@@ -9,12 +9,17 @@ module Action
         , getDir
         , openFile
         , openInExplorer
+        , treeMutation
+        , keyDown
+        , keyUp
         )
 
 import Zipper.History as History exposing (History)
 import Architecture exposing (Model, Message(..))
 import File exposing (Path, Tree)
 import Port
+import Keyboard exposing (KeyCode)
+import Set
 
 
 clearSearch : Model -> Model
@@ -69,3 +74,21 @@ openFile path model =
 openInExplorer : Path -> Model -> ( Model, Cmd Message )
 openInExplorer path model =
     ( model, Port.openInExplorer path )
+
+
+treeMutation : Bool -> Model -> ( Model, Cmd Message )
+treeMutation bool model =
+    if bool then
+        ( model, Port.ls model.history.present )
+    else
+        ( model, Cmd.none )
+
+
+keyDown : KeyCode -> Model -> ( Model, Cmd Message )
+keyDown key model =
+    ( { model | keys = Set.insert key model.keys }, Cmd.none )
+
+
+keyUp : KeyCode -> Model -> ( Model, Cmd Message )
+keyUp key model =
+    ( { model | keys = Set.remove key model.keys }, Cmd.none )

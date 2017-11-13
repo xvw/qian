@@ -12,12 +12,11 @@ function fileToEntry(path, file) {
   }
 }
 
-function resolvePath(path) {
+export function resolvePath(path) {
   return Path.resolve(Path.join(...path))
 }
 
-export function ls(dir) {
-  const path = resolvePath(dir)
+export function ls(path) {
   const list = fs.readdirSync(path)
   return list.map((file) => fileToEntry(path, file))
 }

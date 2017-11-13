@@ -7,7 +7,8 @@ module Architecture
 
 import Zipper.History exposing (History)
 import File exposing (Tree, Path)
-import Keyboard
+import Keyboard exposing (KeyCode)
+import Set exposing (Set)
 
 
 type alias Flags =
@@ -19,6 +20,9 @@ type alias Flags =
 type Message
     = Patch (Model -> ( Model, Cmd Message ))
     | RetreiveTree Tree
+    | TreeMutation Bool
+    | KeyDown KeyCode
+    | KeyUp KeyCode
 
 
 type alias Model =
@@ -27,5 +31,5 @@ type alias Model =
     , tree : Tree
     , showHidden : Bool
     , searchState : String
-    , cmdPressed : Bool
+    , keys : Set KeyCode
     }

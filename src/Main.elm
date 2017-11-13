@@ -6,6 +6,8 @@ import Architecture exposing (Message(..), Model, Flags)
 import View exposing (global)
 import Zipper.History as History
 import Port
+import Keyboard
+import Set
 
 
 init : Flags -> ( Model, Cmd Message )
@@ -15,7 +17,7 @@ init flags =
       , tree = []
       , showHidden = False
       , searchState = ""
-      , cmdPressed = False
+      , keys = Set.empty
       }
     , Port.ls flags.pwd
     )
@@ -25,6 +27,9 @@ subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.batch
         [ Port.getDirTree RetreiveTree
+        , Port.treeMutation TreeMutation
+        , Keyboard.downs KeyDown
+        , Keyboard.ups KeyUp
         ]
 
 
@@ -36,6 +41,15 @@ update message model =
 
         RetreiveTree tree ->
             Action.getDir tree model
+
+        TreeMutation flag ->
+            Action.treeMutation flag model
+
+        KeyUp k ->
+            Action.keyUp k model
+
+        KeyDown k ->
+            Action.keyDown k model
 
 
 main : Platform.Program Flags Model Message

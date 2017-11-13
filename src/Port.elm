@@ -4,6 +4,7 @@ port module Port
         , getDirTree
         , openFile
         , openInExplorer
+        , treeMutation
         )
 
 import File exposing (Path, Tree)
@@ -19,3 +20,6 @@ port openInExplorer : Path -> Cmd msg
 
 
 port getDirTree : (Tree -> msg) -> Sub msg
+
+
+port treeMutation : (Bool -> msg) -> Sub msg
