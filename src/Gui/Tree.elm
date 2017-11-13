@@ -7,13 +7,14 @@ import Html.Attributes as Attr
 import Html.Events exposing (onClick)
 import Gui.Helper exposing (icon)
 import Gui.Seekbar exposing (filter)
+import Action
 
 
 entryDirectory : Path -> ( Html Message, List (Attribute Message) )
 entryDirectory path =
     let
         message =
-            ChangeDirectory path
+            Patch (Action.changeDir path)
     in
         ( icon "folder", [ Attr.class "tree-elt folder", onClick message ] )
 
@@ -22,7 +23,7 @@ entryFile : Path -> ( Html Message, List (Attribute Message) )
 entryFile path =
     let
         message =
-            OpenFile path
+            Patch (Action.openFile path)
     in
         ( icon "file", [ Attr.class "tree-elt not-folder", onClick message ] )
 
@@ -59,7 +60,7 @@ parentFolder model =
                             List.reverse xs
 
                 message =
-                    ChangeDirectory path
+                    Patch (Action.changeDir path)
             in
                 [ a
                     [ Attr.class "tree-elt folder parent", onClick message ]

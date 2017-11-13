@@ -5,7 +5,8 @@ import Gui.Helper exposing (icon, iconCustom, boolToClass)
 import Html exposing (Html, a, div, text)
 import Html.Events exposing (onClick)
 import Html.Attributes as Attr
-import Zipper.History as History
+import Zipper.History as History exposing (Direction(..))
+import Action
 
 
 activeButton : Message -> String -> Bool -> Html Message
@@ -22,19 +23,16 @@ activeButton message iconName enabled =
             buttonIcon
 
 
-historyButton : Model -> Message -> Html Message
+historyButton : Model -> Direction -> Html Message
 historyButton model message =
     let
-        ( f, iconName ) =
+        ( f, iconName, patch ) =
             case message of
-                Backward ->
-                    ( History.hasPast, "arrow-circle-left" )
+                Past ->
+                    ( History.hasPast, "arrow-circle-left", Action.backward )
 
-                Forward ->
-                    ( History.hasFuture, "arrow-circle-right" )
-
-                _ ->
-                    ( \_ -> False, "nothing" )
+                Future ->
+                    ( History.hasFuture, "arrow-circle-right", Action.forward )
 
         enabled =
             f model.history
@@ -43,7 +41,7 @@ historyButton model message =
             iconCustom iconName [ boolToClass enabled ] []
     in
         if enabled then
-            a [ onClick message ] [ iconArrow ]
+            a [ onClick (Patch patch) ] [ iconArrow ]
         else
             iconArrow
 
@@ -57,14 +55,18 @@ hiddenButton model =
             else
                 ( "eye", Attr.class "activate" )
     in
-        a [ onClick ToggleHidden, class ] [ icon iconName ]
+        a [ onClick (Patch Action.toggleHidden), class ] [ icon iconName ]
 
 
 finderButton : Model -> Html Message
 finderButton model =
-    a
-        [ onClick (OpenInFinder model.history.present) ]
-        [ icon "external-link-square " ]
+    let
+        message =
+            Patch (Action.openInExplorer model.history.present)
+    in
+        a
+            [ onClick message ]
+            [ icon "external-link-square " ]
 
 
 render : Model -> Html Message
@@ -80,13 +82,13 @@ render model =
             [ Attr.class "toolbox" ]
             [ div
                 []
-                [ activeButton (ChangeDirectory [ "" ]) "hdd-o" (present /= [ "" ])
-                , activeButton (ChangeDirectory home) "home" (present /= home)
+                [ activeButton (Patch (Action.changeDir [ "" ])) "hdd-o" (present /= [ "" ])
+                , activeButton (Patch (Action.changeDir home)) "home" (present /= home)
                 ]
             , div
                 [ Attr.class "history-buttons" ]
-                [ historyButton model Backward
-                , historyButton model Forward
+                [ historyButton model Past
+                , historyButton model Future
                 , finderButton model
                 , hiddenButton model
                 ]

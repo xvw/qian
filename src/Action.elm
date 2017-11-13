@@ -1,19 +1,50 @@
 module Action
     exposing
-        ( changeHistory
+        ( changeDir
         , toggleHidden
-        , patchSearch
+        , clearSearch
+        , fillSearch
+        , backward
+        , forward
+        , getDir
+        , openFile
+        , openInExplorer
         )
 
-import Zipper.History exposing (History)
+import Zipper.History as History exposing (History)
 import Architecture exposing (Model, Message(..))
-import File exposing (Path)
+import File exposing (Path, Tree)
 import Port
 
 
-patchSearch : Model -> Model
-patchSearch model =
+clearSearch : Model -> Model
+clearSearch model =
     { model | searchState = "" }
+
+
+fillSearch : String -> Model -> ( Model, Cmd Message )
+fillSearch value model =
+    ( { model | searchState = value }, Cmd.none )
+
+
+backward : Model -> ( Model, Cmd Message )
+backward model =
+    changeHistory model History.backward
+
+
+forward : Model -> ( Model, Cmd Message )
+forward model =
+    changeHistory model History.forward
+
+
+changeDir : Path -> Model -> ( Model, Cmd Message )
+changeDir pwd model =
+    changeHistory model (\h -> History.push h pwd)
+
+
+getDir : Tree -> Model -> ( Model, Cmd Message )
+getDir tree model =
+    ( { model | tree = tree } |> clearSearch, Cmd.none )
 
 
 changeHistory : Model -> (History Path -> History Path) -> ( Model, Cmd Message )
@@ -22,9 +53,19 @@ changeHistory model f =
         newModel =
             { model | history = f model.history }
     in
-        ( patchSearch newModel, Port.ls newModel.history.present )
+        ( clearSearch newModel, Port.ls newModel.history.present )
 
 
 toggleHidden : Model -> ( Model, Cmd Message )
 toggleHidden model =
     ( { model | showHidden = not model.showHidden }, Cmd.none )
+
+
+openFile : Path -> Model -> ( Model, Cmd Message )
+openFile path model =
+    ( model, Port.openFile path )
+
+
+openInExplorer : Path -> Model -> ( Model, Cmd Message )
+openInExplorer path model =
+    ( model, Port.openInExplorer path )

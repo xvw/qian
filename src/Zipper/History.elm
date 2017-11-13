@@ -1,6 +1,7 @@
 module Zipper.History
     exposing
         ( History
+        , Direction(..)
         , new
         , push
         , present
@@ -9,6 +10,11 @@ module Zipper.History
         , hasPast
         , hasFuture
         )
+
+
+type Direction
+    = Past
+    | Future
 
 
 type alias History a =

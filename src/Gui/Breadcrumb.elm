@@ -1,5 +1,6 @@
 module Gui.Breadcrumb exposing (render)
 
+import Action
 import File exposing (Path)
 import Architecture exposing (Model, Message(..))
 import Html exposing (Html, ul, li, a, text, span)
@@ -43,7 +44,7 @@ clickableCrumb : Path -> String -> Html Message
 clickableCrumb path filename =
     li
         []
-        [ a [ onClick (ChangeDirectory path) ] [ crumb filename ]
+        [ a [ onClick (Patch (Action.changeDir path)) ] [ crumb filename ]
         , span [ Attr.class "crumb-separator" ] [ text "/" ]
         ]
 

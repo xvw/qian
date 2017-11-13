@@ -6,6 +6,7 @@ import Html.Attributes as Attr
 import Gui.Helper exposing (icon)
 import File exposing (Tree, File)
 import Html.Events exposing (onInput)
+import Action
 
 
 entryFilter : Model -> File -> Bool
@@ -37,7 +38,7 @@ render model =
             , Attr.placeholder "search..."
             , Attr.value model.searchState
             , Attr.type_ "text"
-            , onInput RecordSearchState
+            , onInput (\s -> Patch (Action.fillSearch s))
             ]
             []
         ]

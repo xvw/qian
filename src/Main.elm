@@ -1,12 +1,11 @@
 module Main exposing (..)
 
+import Action
 import Html exposing (programWithFlags)
 import Architecture exposing (Message(..), Model, Flags)
-import Action exposing (changeHistory)
 import View exposing (global)
 import Zipper.History as History
 import Port
-import Keyboard
 import Interactive
 
 
@@ -26,48 +25,29 @@ init flags =
 subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.batch
-        [ Port.getDirTree GetDirTree
-        , Keyboard.downs HandleDown
-        , Keyboard.presses HandlePress
-        , Keyboard.ups HandleUp
+        [ Port.getDirTree RetreiveTree
         ]
 
 
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
     case message of
-        ChangeDirectory newPwd ->
-            Action.changeHistory model (\h -> History.push h newPwd)
+        Patch f ->
+            f model
 
-        Backward ->
-            Action.changeHistory model History.backward
+        RetreiveTree tree ->
+            Action.getDir tree model
 
-        Forward ->
-            Action.changeHistory model History.forward
 
-        ToggleHidden ->
-            Action.toggleHidden model
 
-        GetDirTree tree ->
-            ( Action.patchSearch { model | tree = tree }, Cmd.none )
+{-
+   OpenFile file ->
+       ( model, Port.openFile file )
 
-        RecordSearchState value ->
-            ( { model | searchState = value }, Cmd.none )
+   OpenInFinder path ->
+       ( model, Port.openInFinder path )
 
-        OpenFile file ->
-            ( model, Port.openFile file )
-
-        OpenInFinder path ->
-            ( model, Port.openInFinder path )
-
-        HandleUp keycode ->
-            Interactive.updateUp model keycode
-
-        HandlePress keycode ->
-            Interactive.updatePress model keycode
-
-        HandleDown keycode ->
-            Interactive.updateDown model keycode
+-}
 
 
 main : Platform.Program Flags Model Message

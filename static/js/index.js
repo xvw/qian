@@ -24,6 +24,6 @@ elmApp.ports.openFile.subscribe((path) => {
 });
 
 
-elmApp.ports.openInFinder.subscribe((path) => {
+elmApp.ports.openInExplorer.subscribe((path) => {
   Qian.openInFinder(path)
 })

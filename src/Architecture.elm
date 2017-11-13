@@ -17,17 +17,8 @@ type alias Flags =
 
 
 type Message
-    = ChangeDirectory Path
-    | Backward
-    | Forward
-    | ToggleHidden
-    | GetDirTree Tree
-    | OpenFile Path
-    | OpenInFinder Path
-    | RecordSearchState String
-    | HandlePress Keyboard.KeyCode
-    | HandleDown Keyboard.KeyCode
-    | HandleUp Keyboard.KeyCode
+    = Patch (Model -> ( Model, Cmd Message ))
+    | RetreiveTree Tree
 
 
 type alias Model =
