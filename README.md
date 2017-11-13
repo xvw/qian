@@ -6,13 +6,11 @@
 > explorer. (aha get it ?)
 
 
-
-->![A tiny gif](http://full.ouplo.com/11/2e/zbmd.gif)<-
-
-
-
-
 ## Tl;dr
+
+
+> ![A tiny gif](http://full.ouplo.com/11/2e/EwOS.gif)
+
 
 Since I'm on Mac, I mainly use the terminal to navigate my files because
 I do not like much Finder (I don't really have any arguments ...).
