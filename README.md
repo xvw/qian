@@ -1,6 +1,6 @@
 # Qian
 
-> Qian is an hackable **File explorer**, writted in **Elm** and
+> Qian is an hackable **File explorer**, written in **Elm** and
 > **Electron**. The name **Qian** come from the name of
 > [Zhang Qian](https://en.wikipedia.org/wiki/Zhang_Qian), a Chinese
 > explorer. (aha get it ?)
