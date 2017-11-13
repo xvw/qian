@@ -25,7 +25,7 @@ I do not like much Finder (I don't really have any arguments ...).
 So I decided to build a small file explorer (mainly to navigate my documents)
 that would fit perfectly to **my needs**.
 
-I used **Elm** because I wanted to learn how to use it, and **Electron**  
+I used **Elm** because I wanted to learn how to use it, and **Electron**
 because I want to prototype quickly.
 
 ## Philosophy
