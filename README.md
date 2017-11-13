@@ -6,10 +6,18 @@
 > explorer. (aha get it ?)
 
 
+### Summary
+
+- [Tl;dr](#tldr)
+- [Philosophy](#philosophy)
+- [Features](#features)
+- [Plans](#plans)
+- [Credits](#credits)
+
 ## Tl;dr
 
 
-> ![A tiny gif](http://full.ouplo.com/11/2e/EwOS.gif)
+![A tiny gif](http://full.ouplo.com/11/2e/EwOS.gif)
 
 
 Since I'm on Mac, I mainly use the terminal to navigate my files because
