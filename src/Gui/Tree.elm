@@ -19,7 +19,11 @@ entryDirectory path =
 
 entryFile : Path -> ( Html Message, List (Attribute Message) )
 entryFile path =
-    ( icon "file", [ Attr.class "tree-elt not-folder" ] )
+    let
+        message =
+            OpenFile path
+    in
+        ( icon "file", [ Attr.class "tree-elt not-folder", onClick message ] )
 
 
 entry : Path -> File -> Html Message

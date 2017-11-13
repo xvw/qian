@@ -43,6 +43,9 @@ update message model =
         GetDirTree tree ->
             ( { model | tree = tree }, Cmd.none )
 
+        OpenFile file ->
+            ( model, Port.openFile file )
+
 
 main : Platform.Program Flags Model Message
 main =

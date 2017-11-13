@@ -18,3 +18,7 @@ elmApp.ports.ls.subscribe((pwd) => {
   const list = Qian.ls(pwd)
   elmApp.ports.getDirTree.send(list)
 });
+
+elmApp.ports.openFile.subscribe((path) => {
+  Qian.openFile(path)
+});

@@ -21,6 +21,7 @@ type Message
     | Forward
     | ToggleHidden
     | GetDirTree Tree
+    | OpenFile Path
 
 
 type alias Model =
