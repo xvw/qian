@@ -25,7 +25,9 @@ type Message
     | OpenFile Path
     | OpenInFinder Path
     | RecordSearchState String
-    | HandleInput Keyboard.KeyCode
+    | HandlePress Keyboard.KeyCode
+    | HandleDown Keyboard.KeyCode
+    | HandleUp Keyboard.KeyCode
 
 
 type alias Model =
@@ -34,4 +36,5 @@ type alias Model =
     , tree : Tree
     , showHidden : Bool
     , searchState : String
+    , cmdPressed : Bool
     }

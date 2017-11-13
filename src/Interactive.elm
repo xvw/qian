@@ -1,12 +1,19 @@
-module Interactive exposing (update)
+module Interactive exposing (updateDown, updatePress, updateUp)
 
 import Architecture exposing (Message(..), Model)
 import Keyboard exposing (KeyCode)
 
 
--- Ignored ATM
+updateUp : Model -> KeyCode -> ( Model, Cmd Message )
+updateUp model keyCode =
+    ( model, Cmd.none )
 
 
-update : Model -> KeyCode -> ( Model, Cmd Message )
-update model keycode =
+updatePress : Model -> KeyCode -> ( Model, Cmd Message )
+updatePress model keyCode =
+    ( model, Cmd.none )
+
+
+updateDown : Model -> KeyCode -> ( Model, Cmd Message )
+updateDown model keycode =
     ( model, Cmd.none )

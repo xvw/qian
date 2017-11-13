@@ -17,6 +17,7 @@ init flags =
       , tree = []
       , showHidden = False
       , searchState = ""
+      , cmdPressed = False
       }
     , Port.ls flags.pwd
     )
@@ -26,7 +27,9 @@ subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.batch
         [ Port.getDirTree GetDirTree
-        , Keyboard.downs HandleInput
+        , Keyboard.downs HandleDown
+        , Keyboard.presses HandlePress
+        , Keyboard.ups HandleUp
         ]
 
 
@@ -57,8 +60,14 @@ update message model =
         OpenInFinder path ->
             ( model, Port.openInFinder path )
 
-        HandleInput keycode ->
-            Interactive.update model keycode
+        HandleUp keycode ->
+            Interactive.updateUp model keycode
+
+        HandlePress keycode ->
+            Interactive.updatePress model keycode
+
+        HandleDown keycode ->
+            Interactive.updateDown model keycode
 
 
 main : Platform.Program Flags Model Message
