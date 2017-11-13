@@ -6,7 +6,6 @@ import Architecture exposing (Message(..), Model, Flags)
 import View exposing (global)
 import Zipper.History as History
 import Port
-import Interactive
 
 
 init : Flags -> ( Model, Cmd Message )
@@ -37,17 +36,6 @@ update message model =
 
         RetreiveTree tree ->
             Action.getDir tree model
-
-
-
-{-
-   OpenFile file ->
-       ( model, Port.openFile file )
-
-   OpenInFinder path ->
-       ( model, Port.openInFinder path )
-
--}
 
 
 main : Platform.Program Flags Model Message
