@@ -5,6 +5,9 @@
 > [Zhang Qian](https://en.wikipedia.org/wiki/Zhang_Qian), a Chinese
 > explorer. (aha get it ?)
 
+
+![A tiny gif](http://full.ouplo.com/11/2e/EwOS.gif)
+
 ## Tl;dr
 
 Since I'm on Mac, I mainly use the terminal to navigate my files because
