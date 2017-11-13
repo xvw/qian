@@ -7,6 +7,7 @@ module Architecture
 
 import Zipper.History exposing (History)
 import File exposing (Tree, Path)
+import Keyboard
 
 
 type alias Flags =
@@ -23,6 +24,8 @@ type Message
     | GetDirTree Tree
     | OpenFile Path
     | OpenInFinder Path
+    | RecordSearchState String
+    | HandleInput Keyboard.KeyCode
 
 
 type alias Model =
@@ -30,4 +33,5 @@ type alias Model =
     , home : Path
     , tree : Tree
     , showHidden : Bool
+    , searchState : String
     }

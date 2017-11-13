@@ -13,6 +13,7 @@ import Gui.Toolbox as Toolbox
 import Gui.Breadcrumb as Breadcrumb
 import Gui.Command as Command
 import Gui.Tree as Tree
+import Gui.Seekbar as Seekbar
 
 
 global : Model -> Html Message
@@ -23,5 +24,9 @@ global model =
             , Breadcrumb.render model
             ]
         , main_ [] [ Tree.render model ]
-        , footer [] [ Command.render model ]
+        , footer
+            []
+            [ Seekbar.render model
+            , Command.render model
+            ]
         ]

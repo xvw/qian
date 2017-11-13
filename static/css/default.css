@@ -72,7 +72,9 @@ footer {
   display: flex;
 }
 
-
+footer > div {
+  flex: 1;
+}
 
 footer input[type="text"] {
   border-style: none;
@@ -88,14 +90,20 @@ footer input[type="text"]:focus {
   outline: none;
 }
 
-footer div {
-  margin: auto;
-  padding-left: 8px;
+.search-box {
+  display: flex;
 }
 
-footer div i {
-  margin-right: 4px;
+.search-box > * {
+  margin: auto;
 }
+
+.search-box input {
+  flex: 1;
+  margin-left: 4px;
+}
+
+
 
 .enabled {
   color: #9EA1B3;
@@ -105,9 +113,6 @@ footer div i {
   color: #464A5A;
 }
 
-footer div i.enabled {
-  cursor: pointer;
-}
 
 
 .history-buttons {

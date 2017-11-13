@@ -6,6 +6,7 @@ import Html exposing (Html, Attribute, a, div, text)
 import Html.Attributes as Attr
 import Html.Events exposing (onClick)
 import Gui.Helper exposing (icon)
+import Gui.Seekbar exposing (filter)
 
 
 entryDirectory : Path -> ( Html Message, List (Attribute Message) )
@@ -78,6 +79,7 @@ render model =
         completeTree =
             (model.tree
                 |> f
+                |> filter model
                 |> List.map (entry model.history.present)
             )
     in

@@ -6,6 +6,8 @@ import Action exposing (changeHistory)
 import View exposing (global)
 import Zipper.History as History
 import Port
+import Keyboard
+import Interactive
 
 
 init : Flags -> ( Model, Cmd Message )
@@ -14,6 +16,7 @@ init flags =
       , home = flags.home
       , tree = []
       , showHidden = False
+      , searchState = ""
       }
     , Port.ls flags.pwd
     )
@@ -22,7 +25,9 @@ init flags =
 subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.batch
-        [ Port.getDirTree GetDirTree ]
+        [ Port.getDirTree GetDirTree
+        , Keyboard.downs HandleInput
+        ]
 
 
 update : Message -> Model -> ( Model, Cmd Message )
@@ -41,13 +46,19 @@ update message model =
             Action.toggleHidden model
 
         GetDirTree tree ->
-            ( { model | tree = tree }, Cmd.none )
+            ( Action.patchSearch { model | tree = tree }, Cmd.none )
+
+        RecordSearchState value ->
+            ( { model | searchState = value }, Cmd.none )
 
         OpenFile file ->
             ( model, Port.openFile file )
 
         OpenInFinder path ->
             ( model, Port.openInFinder path )
+
+        HandleInput keycode ->
+            Interactive.update model keycode
 
 
 main : Platform.Program Flags Model Message
