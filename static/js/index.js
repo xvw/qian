@@ -22,3 +22,8 @@ elmApp.ports.ls.subscribe((pwd) => {
 elmApp.ports.openFile.subscribe((path) => {
   Qian.openFile(path)
 });
+
+
+elmApp.ports.openInFinder.subscribe((path) => {
+  Qian.openInFinder(path)
+})

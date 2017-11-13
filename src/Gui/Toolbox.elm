@@ -60,6 +60,13 @@ hiddenButton model =
         a [ onClick ToggleHidden, class ] [ icon iconName ]
 
 
+finderButton : Model -> Html Message
+finderButton model =
+    a
+        [ onClick (OpenInFinder model.history.present) ]
+        [ icon "external-link-square " ]
+
+
 render : Model -> Html Message
 render model =
     let
@@ -80,6 +87,7 @@ render model =
                 [ Attr.class "history-buttons" ]
                 [ historyButton model Backward
                 , historyButton model Forward
+                , finderButton model
                 , hiddenButton model
                 ]
             ]

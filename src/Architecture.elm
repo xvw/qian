@@ -22,6 +22,7 @@ type Message
     | ToggleHidden
     | GetDirTree Tree
     | OpenFile Path
+    | OpenInFinder Path
 
 
 type alias Model =

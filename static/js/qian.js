@@ -12,13 +12,22 @@ function fileToEntry(path, file) {
   }
 }
 
+function resolvePath(path) {
+  return Path.resolve(Path.join(...path))
+}
+
 export function ls(dir) {
-  const path = Path.resolve(Path.join(...dir))
+  const path = resolvePath(dir)
   const list = fs.readdirSync(path)
   return list.map((file) => fileToEntry(path, file))
 }
 
 export function openFile(file) {
-  const path = Path.resolve(Path.join(...file))
+  const path = resolvePath(file)
   shell.openItem(path)
+}
+
+export function openInFinder(dir) {
+  const path = resolvePath(dir)
+  shell.showItemInFolder(path)
 }

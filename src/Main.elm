@@ -46,6 +46,9 @@ update message model =
         OpenFile file ->
             ( model, Port.openFile file )
 
+        OpenInFinder path ->
+            ( model, Port.openInFinder path )
+
 
 main : Platform.Program Flags Model Message
 main =
