@@ -13,12 +13,12 @@ function fileToEntry(path, file) {
 }
 
 export function resolvePath(path) {
-  return Path.resolve(Path.join(...path))
+  return Path.resolve(path)
 }
 
 export function ls(path) {
   const list = fs.readdirSync(path)
-  return list.map((file) => fileToEntry(path, file))
+  return {path: path, entries: list.map((file) => fileToEntry(path, file))}
 }
 
 export function openFile(file) {

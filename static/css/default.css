@@ -141,7 +141,7 @@ footer input[type="text"]:focus {
   color: #F68479;
 }
 
-.breadcrumb > .current {
+.breadcrumb .current {
   color: #97ecc5;
 }
 

@@ -1,12 +1,11 @@
 module Gui.Tree exposing (render)
 
 import Architecture exposing (Model, Message(..))
-import File exposing (Path, File)
+import Path exposing (Path, File, Parent(..))
 import Html exposing (Html, Attribute, a, div, text)
 import Html.Attributes as Attr
 import Html.Events exposing (onClick)
 import Gui.Helper exposing (icon)
-import Gui.Seekbar exposing (filter)
 import Action
 
 
@@ -31,40 +30,43 @@ entryFile path =
 entry : Path -> File -> Html Message
 entry path file =
     let
+        fullPath =
+            Path.join [ path, file.name ]
+
         ( fileIcon, attributes ) =
             if file.isDirectory then
-                entryDirectory (path ++ [ file.name ])
+                entryDirectory fullPath
             else
-                entryFile (path ++ [ file.name ])
+                entryFile fullPath
     in
         a attributes [ fileIcon, text file.name ]
 
 
 parentFolder : Model -> List (Html Message)
 parentFolder model =
-    case List.reverse model.history.present of
-        [] ->
+    case Path.parent model.history.present of
+        AtRoot ->
             []
 
-        [ _ ] ->
-            []
-
-        _ :: xs ->
+        baseParent ->
             let
-                path =
-                    case xs of
-                        [ "" ] ->
-                            [ "Root" ]
+                ( parent, content ) =
+                    case baseParent of
+                        Root ->
+                            ( "", "Root" )
+
+                        Folder f ->
+                            ( f, f )
 
                         _ ->
-                            List.reverse xs
+                            ( "never here", "never here" )
 
                 message =
-                    Patch (Action.changeDir path)
+                    Patch (Action.changeDir parent)
             in
                 [ a
                     [ Attr.class "tree-elt folder parent", onClick message ]
-                    [ icon "level-up", text (String.join "/" path) ]
+                    [ icon "level-up", text content ]
                 ]
 
 
@@ -75,12 +77,13 @@ render model =
             if model.showHidden then
                 (\x -> x)
             else
-                File.purgeHidden
+                Path.purgeHidden
 
         completeTree =
             (model.tree
                 |> f
-                |> filter model
+                |> Path.filterBy model.searchState
+                |> .entries
                 |> List.map (entry model.history.present)
             )
     in

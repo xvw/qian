@@ -16,7 +16,7 @@ module Action
 
 import Zipper.History as History exposing (History)
 import Architecture exposing (Model, Message(..))
-import File exposing (Path, Tree)
+import Path exposing (Path, Tree)
 import Port
 import Keyboard exposing (KeyCode)
 import Set

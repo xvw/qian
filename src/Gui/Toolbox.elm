@@ -82,7 +82,7 @@ render model =
             [ Attr.class "toolbox" ]
             [ div
                 []
-                [ activeButton (Patch (Action.changeDir [ "" ])) "hdd-o" (present /= [ "" ])
+                [ activeButton (Patch (Action.changeDir "")) "hdd-o" (present /= "")
                 , activeButton (Patch (Action.changeDir home)) "home" (present /= home)
                 ]
             , div

@@ -8,11 +8,10 @@ const remote = Electron.remote
 const app = remote.app
 const container = document.getElementById('app');
 const homeDir = app.getPath('home')
-const homeSplitted = homeDir.split(Path.sep)
 
 const elmApp = Elm.Main.embed(container, {
-  pwd:  homeSplitted
-, home: homeSplitted
+  pwd:  homeDir
+, home: homeDir
 });
 
 let watcher

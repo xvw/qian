@@ -14,7 +14,7 @@ init : Flags -> ( Model, Cmd Message )
 init flags =
     ( { history = History.new flags.pwd
       , home = flags.home
-      , tree = []
+      , tree = { path = "", entries = [] }
       , showHidden = False
       , searchState = ""
       , keys = Set.empty

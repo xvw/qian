@@ -6,7 +6,7 @@ module Architecture
         )
 
 import Zipper.History exposing (History)
-import File exposing (Tree, Path)
+import Path exposing (Tree, Path)
 import Keyboard exposing (KeyCode)
 import Set exposing (Set)
 

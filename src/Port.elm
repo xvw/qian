@@ -7,7 +7,7 @@ port module Port
         , treeMutation
         )
 
-import File exposing (Path, Tree)
+import Path exposing (Path, Tree)
 
 
 port ls : Path -> Cmd msg

@@ -1,58 +1,36 @@
 module Gui.Breadcrumb exposing (render)
 
 import Action
-import File exposing (Path)
+import Path exposing (Path)
 import Architecture exposing (Model, Message(..))
 import Html exposing (Html, ul, li, a, text, span)
 import Html.Events exposing (onClick)
 import Html.Attributes as Attr
 
 
-make : Model -> Path -> Path -> List (Html Message) -> List (Html Message)
-make model pwd visited result =
-    case pwd of
-        [] ->
-            result
-
-        [ x ] ->
-            (li [ Attr.class "current" ] [ crumb x ]) :: result
-
-        x :: xs ->
-            let
-                path =
-                    visited ++ [ x ]
-
-                aCrumb =
-                    (clickableCrumb path x)
-            in
-                make model xs path (aCrumb :: result)
+make : Model -> List (Html Message)
+make model =
+    model.history.present
+        |> Path.unroll
+        |> List.map (\( path, filename ) -> clickableCrumb model path filename)
 
 
-crumb : String -> Html Message
-crumb fileName =
+clickableCrumb : Model -> Path -> String -> Html Message
+clickableCrumb model path filename =
     let
         content =
-            if String.isEmpty fileName then
-                "Root"
+            if model.history.present == path then
+                [ span [ Attr.class "current" ] [ text filename ] ]
             else
-                fileName
+                [ a [ onClick (Patch (Action.changeDir path)) ] [ text filename ]
+                , span [ Attr.class "crumb-separator" ] [ text "/" ]
+                ]
     in
-        text content
-
-
-clickableCrumb : Path -> String -> Html Message
-clickableCrumb path filename =
-    li
-        []
-        [ a [ onClick (Patch (Action.changeDir path)) ] [ crumb filename ]
-        , span [ Attr.class "crumb-separator" ] [ text "/" ]
-        ]
+        li [] content
 
 
 render : Model -> Html Message
 render model =
     ul
         [ Attr.class "breadcrumb" ]
-        ((make model model.history.present [] [])
-            |> List.reverse
-        )
+        (make model)
