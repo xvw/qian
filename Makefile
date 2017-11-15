@@ -3,10 +3,11 @@
 all: run
 
 build:
-	webpack
+	node ./node_modules/electron/install.js
+	./node_modules/.bin/webpack
 
 run: build
-	electron main.js
+	./node_modules/.bin/electron main.js
 
 
 install:
