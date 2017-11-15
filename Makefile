@@ -9,7 +9,7 @@ run: build
 	electron main.js
 
 
-install: 
+install:
 	npm install
 
 clean:

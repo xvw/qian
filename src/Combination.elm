@@ -13,12 +13,13 @@ type Combination
     | CmdLeft
     | CmdRight
     | CmdUp
+    | CmdW
     | Void
 
 
 allowed : List KeyCode
 allowed =
-    [ 13, 16, 18, 37, 38, 39 ]
+    [ 13, 16, 18, 37, 38, 39, 87 ]
 
 
 enter : Set KeyCode
@@ -51,6 +52,11 @@ cmdRight =
     Set.fromList [ 18, 39 ]
 
 
+cmdW : Set KeyCode
+cmdW =
+    Set.fromList [ 18, 87 ]
+
+
 keyUp : KeyCode -> Model -> ( Model, Cmd Message )
 keyUp key model =
     ( { model | keys = Set.remove key model.keys }, Cmd.none )
@@ -79,6 +85,8 @@ dispatch set =
         CmdRight
     else if set == cmdUp then
         CmdUp
+    else if set == cmdW then
+        CmdW
     else
         Void
 
@@ -97,6 +105,9 @@ handle model =
 
         CmdUp ->
             Action.toParent model
+
+        CmdW ->
+            Action.toggleHidden model
 
         CmdShiftEnter ->
             Action.openInExplorer model.history.present model
