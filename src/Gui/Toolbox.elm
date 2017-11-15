@@ -66,7 +66,18 @@ finderButton model =
     in
         a
             [ onClick message ]
-            [ icon "external-link-square " ]
+            [ icon "external-link-square" ]
+
+
+terminalButton : Model -> Html Message
+terminalButton model =
+    let
+        message =
+            Patch (Action.openTerminal model.history.present)
+    in
+        a
+            [ onClick message ]
+            [ icon "terminal" ]
 
 
 render : Model -> Html Message
@@ -90,6 +101,7 @@ render model =
                 [ historyButton model Past
                 , historyButton model Future
                 , finderButton model
+                , terminalButton model
                 , hiddenButton model
                 ]
             ]

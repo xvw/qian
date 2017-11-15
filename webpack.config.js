@@ -1,4 +1,5 @@
 module.exports = {
+  target: 'node',
   entry: './static/js/index.js',
   output: {
       path: __dirname+'/dist',

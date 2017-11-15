@@ -14,6 +14,7 @@ const elmApp = Elm.Main.embed(container, {
 , home: homeDir
 });
 
+
 let watcher
 
 elmApp.ports.ls.subscribe((pwd) => {
@@ -30,6 +31,10 @@ elmApp.ports.ls.subscribe((pwd) => {
 
 elmApp.ports.openFile.subscribe((path) => {
   Qian.openFile(path)
+});
+
+elmApp.ports.openTerminal.subscribe((path) => {
+  Qian.openTerminal(path)
 });
 
 

@@ -9,6 +9,7 @@ module Action
         , getDir
         , openFile
         , openInExplorer
+        , openTerminal
         , treeMutation
         , keyDown
         , keyUp
@@ -20,6 +21,7 @@ import Path exposing (Path, Tree)
 import Port
 import Keyboard exposing (KeyCode)
 import Set
+import Combination
 
 
 clearSearch : Model -> Model
@@ -76,6 +78,11 @@ openInExplorer path model =
     ( model, Port.openInExplorer path )
 
 
+openTerminal : Path -> Model -> ( Model, Cmd Message )
+openTerminal path model =
+    ( model, Port.openTerminal path )
+
+
 treeMutation : Bool -> Model -> ( Model, Cmd Message )
 treeMutation bool model =
     if bool then
@@ -86,7 +93,12 @@ treeMutation bool model =
 
 keyDown : KeyCode -> Model -> ( Model, Cmd Message )
 keyDown key model =
-    ( { model | keys = Set.insert key model.keys }, Cmd.none )
+    let
+        d =
+            Debug.log "foo" model.keys
+    in
+        { model | keys = Set.insert key model.keys }
+            |> Combination.handle
 
 
 keyUp : KeyCode -> Model -> ( Model, Cmd Message )

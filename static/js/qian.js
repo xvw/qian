@@ -1,6 +1,8 @@
 import fs from 'fs'
 import Path from 'path'
-const {shell} = require('electron')
+import electron from 'electron'
+import * as ChildProcess from 'child_process'
+const {shell} = electron
 
 
 function fileToEntry(path, file) {
@@ -29,4 +31,9 @@ export function openFile(file) {
 export function openInFinder(dir) {
   const path = resolvePath(dir)
   shell.showItemInFolder(path)
+}
+
+export function openTerminal(dir) {
+  const path = resolvePath(dir)
+  ChildProcess.spawn('open', ['-a', 'Terminal.app', path]);
 }
