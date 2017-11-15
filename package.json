@@ -18,6 +18,7 @@
     "babel-preset-env": "^1.6.1",
     "electron-packager": "^9.1.0",
     "electron-prebuilt": "^1.4.13",
-    "electron-rebuild": "^1.6.0"
+    "electron-rebuild": "^1.6.0",
+    "webpack": "^3.8.1"
   }
 }
