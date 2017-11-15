@@ -52,6 +52,7 @@ In addition, if a feature seems interesting to implement, let's talk about it in
 
 ## Usage
 
+-  `npm install -g elm` (to install Elm)
 -  `make install` to fetch the NPM dependancies
 -  `make build` to build the application
 -  `make run` to run the buildt application
