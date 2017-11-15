@@ -15,7 +15,7 @@ function fileToEntry(path, file) {
 }
 
 export function resolvePath(path) {
-  return Path.resolve(path)
+  return (path == "") ? "/" : Path.resolve(path)
 }
 
 export function ls(path) {
