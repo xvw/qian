@@ -73,18 +73,7 @@ parentFolder model =
 render : Model -> Html Message
 render model =
     let
-        f =
-            if model.showHidden then
-                (\x -> x)
-            else
-                Path.purgeHidden
-
         completeTree =
-            (model.tree
-                |> f
-                |> Path.filterBy model.searchState
-                |> .entries
-                |> List.map (entry model.history.present)
-            )
+            List.map (entry model.history.present) model.displayedTree.entries
     in
         div [] ((parentFolder model) ++ completeTree)

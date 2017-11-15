@@ -37,9 +37,12 @@ type Parent
     | Folder Path
 
 
-purgeHidden : Tree -> Tree
-purgeHidden tree =
-    { tree | entries = List.filter (\x -> not x.isHidden) tree.entries }
+purgeHidden : Bool -> Tree -> Tree
+purgeHidden flag tree =
+    if not flag then
+        { tree | entries = List.filter (\x -> not x.isHidden) tree.entries }
+    else
+        tree
 
 
 entryFilter : String -> File -> Bool

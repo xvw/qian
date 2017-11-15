@@ -8,16 +8,17 @@ import Action
 
 type Combination
     = Enter
-    | AltEnter
-    | AltLeft
-    | AltRight
-    | AltUp
+    | CmdEnter
+    | CmdShiftEnter
+    | CmdLeft
+    | CmdRight
+    | CmdUp
     | Void
 
 
 allowed : List KeyCode
 allowed =
-    [ 13, 18, 37, 38, 39 ]
+    [ 13, 16, 18, 37, 38, 39 ]
 
 
 enter : Set KeyCode
@@ -25,23 +26,28 @@ enter =
     Set.singleton 13
 
 
-altEnter : Set KeyCode
-altEnter =
+cmdEnter : Set KeyCode
+cmdEnter =
     Set.fromList [ 13, 18 ]
 
 
-altLeft : Set KeyCode
-altLeft =
+cmdShiftEnter : Set KeyCode
+cmdShiftEnter =
+    Set.fromList [ 13, 16, 18 ]
+
+
+cmdLeft : Set KeyCode
+cmdLeft =
     Set.fromList [ 18, 37 ]
 
 
-altUp : Set KeyCode
-altUp =
+cmdUp : Set KeyCode
+cmdUp =
     Set.fromList [ 18, 38 ]
 
 
-altRight : Set KeyCode
-altRight =
+cmdRight : Set KeyCode
+cmdRight =
     Set.fromList [ 18, 39 ]
 
 
@@ -63,14 +69,16 @@ dispatch : Set KeyCode -> Combination
 dispatch set =
     if set == enter then
         Enter
-    else if set == altEnter then
-        AltEnter
-    else if set == altLeft then
-        AltLeft
-    else if set == altRight then
-        AltRight
-    else if set == altUp then
-        AltUp
+    else if set == cmdEnter then
+        CmdEnter
+    else if set == cmdShiftEnter then
+        CmdShiftEnter
+    else if set == cmdLeft then
+        CmdLeft
+    else if set == cmdRight then
+        CmdRight
+    else if set == cmdUp then
+        CmdUp
     else
         Void
 
@@ -78,17 +86,26 @@ dispatch set =
 handle : Model -> ( Model, Cmd Message )
 handle model =
     case dispatch model.keys of
-        AltEnter ->
+        CmdEnter ->
             Action.openTerminal model.history.present model
 
-        AltLeft ->
+        CmdLeft ->
             Action.backward model
 
-        AltRight ->
+        CmdRight ->
             Action.forward model
 
-        AltUp ->
+        CmdUp ->
             Action.toParent model
+
+        CmdShiftEnter ->
+            Action.openInExplorer model.history.present model
+
+        Enter ->
+            if not (String.isEmpty model.searchState) then
+                Action.openFirst model
+            else
+                ( model, Cmd.none )
 
         _ ->
             ( model, Cmd.none )

@@ -29,6 +29,7 @@ type alias Model =
     { history : History Path
     , home : Path
     , tree : Tree
+    , displayedTree : Tree
     , showHidden : Bool
     , searchState : String
     , keys : Set KeyCode

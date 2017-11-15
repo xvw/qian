@@ -12,12 +12,23 @@ module Action
         , openTerminal
         , treeMutation
         , toParent
+        , openFirst
         )
 
 import Zipper.History as History exposing (History)
 import Architecture exposing (Model, Message(..))
 import Path exposing (Path, Tree, Parent(..))
 import Port
+
+
+processFilter : Model -> Model
+processFilter model =
+    let
+        f =
+            (Path.purgeHidden model.showHidden)
+                >> (Path.filterBy model.searchState)
+    in
+        { model | displayedTree = f model.tree }
 
 
 clearSearch : Model -> Model
@@ -27,7 +38,10 @@ clearSearch model =
 
 fillSearch : String -> Model -> ( Model, Cmd Message )
 fillSearch value model =
-    ( { model | searchState = value }, Cmd.none )
+    ( { model | searchState = value }
+        |> processFilter
+    , Cmd.none
+    )
 
 
 backward : Model -> ( Model, Cmd Message )
@@ -60,7 +74,11 @@ changeDir pwd model =
 
 getDir : Tree -> Model -> ( Model, Cmd Message )
 getDir tree model =
-    ( { model | tree = tree } |> clearSearch, Cmd.none )
+    ( { model | tree = tree }
+        |> processFilter
+        |> clearSearch
+    , Cmd.none
+    )
 
 
 changeHistory : Model -> (History Path -> History Path) -> ( Model, Cmd Message )
@@ -74,7 +92,10 @@ changeHistory model f =
 
 toggleHidden : Model -> ( Model, Cmd Message )
 toggleHidden model =
-    ( { model | showHidden = not model.showHidden }, Cmd.none )
+    ( { model | showHidden = not model.showHidden }
+        |> processFilter
+    , Cmd.none
+    )
 
 
 openFile : Path -> Model -> ( Model, Cmd Message )
@@ -98,3 +119,20 @@ treeMutation bool model =
         ( model, Port.ls model.history.present )
     else
         ( model, Cmd.none )
+
+
+openFirst : Model -> ( Model, Cmd Message )
+openFirst model =
+    case model.displayedTree.entries of
+        x :: _ ->
+            let
+                path =
+                    Path.join [ model.tree.path, x.name ]
+            in
+                if x.isDirectory then
+                    changeDir path model
+                else
+                    openFile path model
+
+        _ ->
+            ( model, Cmd.none )

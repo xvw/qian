@@ -16,6 +16,7 @@ init flags =
     ( { history = History.new flags.pwd
       , home = flags.home
       , tree = { path = "", entries = [] }
+      , displayedTree = { path = "", entries = [] }
       , showHidden = False
       , searchState = ""
       , keys = Set.empty
