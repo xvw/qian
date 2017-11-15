@@ -11,17 +11,13 @@ module Action
         , openInExplorer
         , openTerminal
         , treeMutation
-        , keyDown
-        , keyUp
+        , toParent
         )
 
 import Zipper.History as History exposing (History)
 import Architecture exposing (Model, Message(..))
-import Path exposing (Path, Tree)
+import Path exposing (Path, Tree, Parent(..))
 import Port
-import Keyboard exposing (KeyCode)
-import Set
-import Combination
 
 
 clearSearch : Model -> Model
@@ -42,6 +38,19 @@ backward model =
 forward : Model -> ( Model, Cmd Message )
 forward model =
     changeHistory model History.forward
+
+
+toParent : Model -> ( Model, Cmd Message )
+toParent model =
+    case Path.parent model.history.present of
+        Root ->
+            changeDir "" model
+
+        Folder f ->
+            changeDir f model
+
+        AtRoot ->
+            ( model, Cmd.none )
 
 
 changeDir : Path -> Model -> ( Model, Cmd Message )
@@ -89,18 +98,3 @@ treeMutation bool model =
         ( model, Port.ls model.history.present )
     else
         ( model, Cmd.none )
-
-
-keyDown : KeyCode -> Model -> ( Model, Cmd Message )
-keyDown key model =
-    let
-        d =
-            Debug.log "foo" model.keys
-    in
-        { model | keys = Set.insert key model.keys }
-            |> Combination.handle
-
-
-keyUp : KeyCode -> Model -> ( Model, Cmd Message )
-keyUp key model =
-    ( { model | keys = Set.remove key model.keys }, Cmd.none )

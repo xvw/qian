@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Action
+import Combination
 import Html exposing (programWithFlags)
 import Architecture exposing (Message(..), Model, Flags)
 import View exposing (global)
@@ -46,10 +47,10 @@ update message model =
             Action.treeMutation flag model
 
         KeyUp k ->
-            Action.keyUp k model
+            Combination.keyUp k model
 
         KeyDown k ->
-            Action.keyDown k model
+            Combination.keyDown k model
 
 
 main : Platform.Program Flags Model Message
