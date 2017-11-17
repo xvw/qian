@@ -13,6 +13,7 @@ module Path
         , unroll
         )
 
+import Simple.Fuzzy as Fuzzy
 
 type alias File =
     { name : String
@@ -46,15 +47,7 @@ purgeHidden flag tree =
 
 
 entryFilter : String -> File -> Bool
-entryFilter pred file =
-    let
-        lowerSearch =
-            String.toLower pred
-
-        lowerName =
-            String.toLower file.name
-    in
-        String.contains lowerSearch lowerName
+entryFilter pred = (Fuzzy.match pred) << .name
 
 
 filterBy : String -> Tree -> Tree
