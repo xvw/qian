@@ -9,8 +9,8 @@ let mainWindow
 
 function createWindow () {
   mainWindow = new BrowserWindow({
-    width: 820,
-    height: 480
+    width: 960,
+    height: 640
   })
   mainWindow.loadURL(`file://${ __dirname }/static/index.html`)
   mainWindow.webContents.openDevTools()

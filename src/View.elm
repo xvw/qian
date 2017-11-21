@@ -15,16 +15,17 @@ import Html
         , main_
         )
 import Html.Attributes as Attr
+import Component.Breadcrumb as Breadcrumb
 
 
-{-| The global view
+{-| The global view of the Application.
 -}
 global : Model -> Html Message
 global model =
     div
         [ Attr.class "inner-app" ]
         [ header []
-            [ text "h"
+            [ Breadcrumb.render model
             ]
         , main_ []
             [ text "m"

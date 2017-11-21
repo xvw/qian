@@ -7,6 +7,7 @@ import Html
 import View
 import Model exposing (Model, Flags)
 import Message exposing (Message)
+import File
 
 
 {-| Subscriptions (discretes signals) of the app

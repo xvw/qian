@@ -4,6 +4,7 @@ module Model
         , Configuration
         , Flags
         , init
+        , now
         )
 
 {-| Describe the model and this relation
@@ -11,13 +12,14 @@ module Model
 
 import Message exposing (Message(..))
 import Zipper.History as History exposing (History)
+import File
 
 
 {-| Describe the model of the Application
 -}
 type alias Model =
     { config : Configuration
-    , history : History String
+    , history : History File.Path
     }
 
 
@@ -30,10 +32,10 @@ type alias Configuration =
 {-| Describe the input from JavaScript
 -}
 type alias Flags =
-    { current : String
+    { current : File.Path
     , config : Configuration
-    , home : String
-    , root : String
+    , home : File.Path
+    , root : File.Path
     }
 
 
@@ -46,3 +48,10 @@ init flags =
       }
     , Cmd.none
     )
+
+
+{-| Get the current state of the navigation
+-}
+now : Model -> String
+now model =
+    model.history.present
