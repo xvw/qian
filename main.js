@@ -1,4 +1,6 @@
 const electron = require('electron')
+const path = require('path')
+const fs = require('fs');
 
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
@@ -10,9 +12,8 @@ function createWindow () {
     width: 820,
     height: 480
   })
-
   mainWindow.loadURL(`file://${ __dirname }/static/index.html`)
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   mainWindow.on('closed', function () {
     mainWindow = null
   })
