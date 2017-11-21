@@ -27,10 +27,6 @@ global model =
         [ header []
             [ Breadcrumb.render model
             ]
-        , main_ []
-            [ text "m"
-            ]
-        , footer []
-            [ text "f"
-            ]
+        , main_ [] []
+        , footer [] [ text "footer" ]
         ]

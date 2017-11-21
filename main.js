@@ -13,7 +13,7 @@ function createWindow () {
     height: 640
   })
   mainWindow.loadURL(`file://${ __dirname }/static/index.html`)
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
   mainWindow.on('closed', function () {
     mainWindow = null
   })

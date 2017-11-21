@@ -5,6 +5,7 @@ module Component.Breadcrumb exposing (render)
 
 import Model exposing (Model)
 import Message exposing (Message(..))
+import File
 import Html
     exposing
         ( Html
@@ -16,4 +17,8 @@ import Html
 -}
 render : Model -> Html Message
 render model =
-    text (Model.now model)
+    let
+        crumbs =
+            File.expandPath (Model.now model)
+    in
+        text "foo"
