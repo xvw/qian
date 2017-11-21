@@ -3,7 +3,8 @@ module Main exposing (..)
 {-| Entry point of the Application
 -}
 
-import Html exposing (text)
+import Html
+import View
 import Model exposing (Model, Flags)
 import Message exposing (Message)
 
@@ -29,6 +30,6 @@ main =
     Html.programWithFlags
         { init = Model.init
         , update = update
-        , view = (\_ -> text "Hello")
+        , view = View.global
         , subscriptions = subscriptions
         }
