@@ -40,4 +40,4 @@ const flags = {
 
 // Initialize the Elm behaviour
 const container = document.getElementById('app');
-const elmApp = elm.Main.embed(container);
+const elmApp = elm.Main.embed(container, flags);
