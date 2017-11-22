@@ -6,7 +6,6 @@ module Component.HistoryButtons exposing (render)
 import Zipper.History as History exposing (History)
 import File
 import Component.Helper exposing (iconCustom)
-import Model exposing (Model)
 import Message exposing (Message(..))
 import Html.Attributes as Attr
 import Html.Events exposing (onClick)

@@ -13,6 +13,7 @@ module Model
 import Message exposing (Message(..))
 import Zipper.History as History exposing (History)
 import File
+import Port
 
 
 {-| Describe the model of the Application
@@ -20,6 +21,8 @@ import File
 type alias Model =
     { config : Configuration
     , history : History File.Path
+    , realTree : File.Tree
+    , currentTree : File.Tree
     }
 
 
@@ -45,8 +48,10 @@ init : Flags -> ( Model, Cmd Message )
 init flags =
     ( { config = flags.config
       , history = History.new flags.current
+      , realTree = []
+      , currentTree = []
       }
-    , Cmd.none
+    , Port.getTree flags.current
     )
 
 

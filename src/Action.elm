@@ -2,6 +2,7 @@ module Action
     exposing
         ( changeDir
         , navigateHistory
+        , changeTree
         )
 
 {-| Provide all "action" of the application
@@ -11,6 +12,7 @@ import Model exposing (Model)
 import Message exposing (Message(..))
 import Zipper.History as History exposing (History)
 import File
+import Port
 
 
 {-| Perform a "dir changement"
@@ -22,7 +24,18 @@ changeDir model newPath =
 
 navigateHistory : Model -> History File.Path -> ( Model, Cmd Message )
 navigateHistory model newHistory =
-    ( { model | history = newHistory }, Cmd.none )
+    let
+        newModel =
+            { model | history = newHistory }
+    in
+        ( newModel, Port.getTree (Model.now newModel) )
+
+
+{-| Change the current tree
+-}
+changeTree : Model -> File.Tree -> ( Model, Cmd Message )
+changeTree model tree =
+    ( model, Cmd.none )
 
 
 {-| Perform a modification in the history using a function
@@ -33,4 +46,4 @@ changeHistory model f =
         newModel =
             { model | history = f model.history }
     in
-        ( newModel, Cmd.none )
+        ( newModel, Port.getTree (Model.now newModel) )

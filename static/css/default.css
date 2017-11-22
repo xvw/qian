@@ -48,9 +48,6 @@ header {
   flex-direction: row;
 }
 
-.inner-app > main {
-  flex: 1;
-}
 
 /* Relative to breadcrumb */
 
@@ -74,7 +71,7 @@ header {
   color: #999999;
 }
 
-/* Reltive to the two history buttons */
+/* Relative to the two history buttons */
 
 .history-buttons > i {
   margin-left: 4px;
@@ -92,4 +89,10 @@ header {
 
 .history-buttons > .enabled:hover {
   color: #fff;
+}
+
+/* Relative to the tree view */
+
+.tree-view {
+  flex: 1;
 }

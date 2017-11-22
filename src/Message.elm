@@ -10,3 +10,4 @@ import Zipper.History as History exposing (History)
 type Message
     = ChangeDir File.Path
     | NavigateHistory (History File.Path)
+    | ChangeTree File.Tree

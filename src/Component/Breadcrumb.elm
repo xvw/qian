@@ -1,9 +1,8 @@
 module Component.Breadcrumb exposing (render)
 
-{-| This module is a component to display a breadcrumb from a Model
+{-| This module is a component to display a breadcrumb from a path
 -}
 
-import Model exposing (Model)
 import Message exposing (Message(..))
 import File exposing (PathMember(..))
 import Component.Helper exposing (icon)
@@ -21,12 +20,9 @@ import Html
 
 {-| Render the breadcrumb.
 -}
-render : Model -> Html Message
-render model =
+render : File.Path -> Html Message
+render currentPath =
     let
-        currentPath =
-            Model.now model
-
         crumbs =
             File.expandPath currentPath
     in

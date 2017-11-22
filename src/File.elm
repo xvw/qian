@@ -1,6 +1,7 @@
 module File
     exposing
         ( Path
+        , Tree
         , ExpandedPath
         , PathMember(..)
         , expandPath
@@ -33,6 +34,22 @@ type alias ExpandedPath =
     { relative : PathMember
     , absolute : Path
     }
+
+
+{-| Represents a file coming from the Finder
+-}
+type alias FromFinder =
+    { name : String
+    , path : Path
+    , directory : Bool
+    , hidden : Bool
+    }
+
+
+{-| Represent a list of File from the Finder
+-}
+type alias Tree =
+    List FromFinder
 
 
 trailSlashes : Path -> Path

@@ -26,9 +26,13 @@ global model =
     div
         [ Attr.class "inner-app" ]
         [ header []
-            [ Breadcrumb.render model
+            [ Breadcrumb.render (Model.now model)
             , HistoryButtons.render model.history
             ]
-        , main_ [] []
-        , footer [] [ text "footer" ]
+        , main_
+            [ Attr.class "tree-view" ]
+            []
+        , footer
+            []
+            [ text "footer" ]
         ]

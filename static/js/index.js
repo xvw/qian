@@ -41,3 +41,19 @@ const flags = {
 // Initialize the Elm behaviour
 const container = document.getElementById('app');
 const elmApp = elm.Main.embed(container, flags);
+
+// Ports to Elm Application
+
+elmApp.ports.getTree.subscribe((pwd) => {
+  const dir = path.resolve(pwd)
+  const tree = fs.readdirSync(dir).map((entry) => {
+    const completePath = path.join(dir, entry)
+    return {
+        name:      entry
+      , path:      completePath
+      , hidden:    entry[0] === '.' /* Maybe to be improve :/ */
+      , directory: fs.lstatSync(completePath).isDirectory()
+    }
+  });
+  elmApp.ports.retreiveTree.send(tree)
+});

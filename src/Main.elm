@@ -6,6 +6,7 @@ module Main exposing (..)
 import Html
 import View
 import Action
+import Port
 import Model exposing (Model, Flags)
 import Message exposing (Message(..))
 
@@ -14,7 +15,9 @@ import Message exposing (Message(..))
 -}
 subscriptions : Model -> Sub Message
 subscriptions model =
-    Sub.batch []
+    Sub.batch
+        [ Port.retreiveTree ChangeTree
+        ]
 
 
 {-| Update process
@@ -24,6 +27,9 @@ update message model =
     case message of
         ChangeDir newDir ->
             Action.changeDir model newDir
+
+        ChangeTree newTree ->
+            Action.changeTree model newTree
 
         NavigateHistory newHistory ->
             Action.navigateHistory model newHistory
