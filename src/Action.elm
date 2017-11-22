@@ -35,7 +35,11 @@ navigateHistory model newHistory =
 -}
 changeTree : Model -> File.Tree -> ( Model, Cmd Message )
 changeTree model tree =
-    ( model, Cmd.none )
+    let
+        newModel =
+            { model | realTree = tree, currentTree = tree }
+    in
+        ( newModel, Cmd.none )
 
 
 {-| Perform a modification in the history using a function

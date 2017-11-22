@@ -19,10 +19,10 @@ import Port
 {-| Describe the model of the Application
 -}
 type alias Model =
-    { config : Configuration
-    , history : History File.Path
-    , realTree : File.Tree
-    , currentTree : File.Tree
+    { config : Configuration -- Configuration
+    , history : History File.Path -- History and current Path
+    , realTree : File.Tree -- The real current file tree
+    , currentTree : File.Tree -- The tree to be filtered (and displayed)
     }
 
 

@@ -95,4 +95,38 @@ header {
 
 .tree-view {
   flex: 1;
+  padding: 8px;
+  overflow: auto;
+}
+
+.tree-view > ul {
+  padding: 0;
+  margin: 0;
+}
+
+.tree-view > ul > li {
+  cursor: pointer;
+  list-style: none;
+  padding: 3px 8px;
+  margin: 0;
+}
+
+.tree-view > ul > li > i {
+  margin-right: 12px;
+}
+
+.tree-view > ul > li > .directory {
+  color: #666;
+}
+
+.tree-view > ul > li > .file {
+  color: #888;
+}
+
+.tree-view > ul > li > .item-name {
+  transition: color 0.05s;
+}
+
+.tree-view > ul > li:hover > .item-name {
+  color: #FFF;
 }

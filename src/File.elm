@@ -4,6 +4,7 @@ module File
         , Tree
         , ExpandedPath
         , PathMember(..)
+        , FromFinder
         , expandPath
         , split
         , join
