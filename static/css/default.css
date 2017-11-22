@@ -1,3 +1,5 @@
+/* Fix and polyfils */
+
 html {
   box-sizing: border-box;
 }
@@ -8,6 +10,8 @@ html {
 ::selection {
 background:transparent;
 }
+
+/* Generic Rules */
 
 .sans-serif {
   font-family: 'Roboto', sans-serif;
@@ -48,6 +52,8 @@ header {
   flex: 1;
 }
 
+/* Relative to breadcrumb */
+
 .breadcrumb {
   flex: 1;
 }
@@ -68,6 +74,7 @@ header {
   color: #999999;
 }
 
+/* Reltive to the two history buttons */
 
 .history-buttons > i {
   margin-left: 4px;
