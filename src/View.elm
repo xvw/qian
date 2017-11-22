@@ -16,6 +16,7 @@ import Html
         )
 import Html.Attributes as Attr
 import Component.Breadcrumb as Breadcrumb
+import Component.HistoryButtons as HistoryButtons
 
 
 {-| The global view of the Application.
@@ -26,6 +27,7 @@ global model =
         [ Attr.class "inner-app" ]
         [ header []
             [ Breadcrumb.render model
+            , HistoryButtons.render model.history
             ]
         , main_ [] []
         , footer [] [ text "footer" ]

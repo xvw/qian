@@ -5,6 +5,10 @@ html {
   box-sizing: inherit;
 }
 
+::selection {
+background:transparent;
+}
+
 .sans-serif {
   font-family: 'Roboto', sans-serif;
 }
@@ -19,7 +23,12 @@ body {
     margin: 0;
     height: 100vh;
     background-color: #111111;
-    color: #555555;
+    color: #666666;
+}
+
+a {
+  color: #555555;
+  text-decoration: none;
 }
 
 .inner-app {
@@ -31,8 +40,30 @@ body {
 header {
   padding: 8px;
   background-color: black;
+  display: flex;
+  flex-direction: row;
 }
 
 .inner-app > main {
   flex: 1;
+}
+
+.breadcrumb {
+  flex: 1;
+}
+
+.breadcrumb > .crumb > i {
+  padding: 0 8px;
+}
+
+.breadcrumb > .crumb > a {
+  transition: color 0.2s;
+}
+
+.breadcrumb > .crumb > a:hover {
+  color: #fff;
+}
+
+.breadcrumb > .crumb > .current {
+  color: #999999;
 }

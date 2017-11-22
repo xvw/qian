@@ -5,8 +5,9 @@ module Main exposing (..)
 
 import Html
 import View
+import Action
 import Model exposing (Model, Flags)
-import Message exposing (Message)
+import Message exposing (Message(..))
 
 
 {-| Subscriptions (discretes signals) of the app
@@ -16,11 +17,13 @@ subscriptions model =
     Sub.batch []
 
 
-{-| Update
+{-| Update process
 -}
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
-    ( model, Cmd.none )
+    case message of
+        ChangeDir newDir ->
+            Action.changeDir model newDir
 
 
 {-| Main program

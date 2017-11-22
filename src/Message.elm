@@ -3,6 +3,8 @@ module Message exposing (Message(..))
 {-| Describe the messages of the application
 -}
 
+import File
+
 
 type Message
-    = ToBeDone
+    = ChangeDir File.Path
