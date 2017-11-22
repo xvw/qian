@@ -53,6 +53,7 @@ header {
 
 .breadcrumb {
   flex: 1;
+  font-family: 'Ubuntu Mono', monospace;
 }
 
 .breadcrumb > .crumb > i {
@@ -112,11 +113,12 @@ header {
 }
 
 .tree-view > ul > li > i {
+  transition: color 0.05s;
   margin-right: 12px;
 }
 
 .tree-view > ul > li > .directory {
-  color: #666;
+  color: #444;
 }
 
 .tree-view > ul > li > .file {
@@ -128,5 +130,9 @@ header {
 }
 
 .tree-view > ul > li:hover > .item-name {
-  color: #FFF;
+  color: #BBB;
+}
+
+.tree-view > ul > li:hover > i {
+  color: #BBB;
 }

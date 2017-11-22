@@ -3,6 +3,7 @@ module Action
         ( changeDir
         , navigateHistory
         , changeTree
+        , treeMutation
         )
 
 {-| Provide all "action" of the application
@@ -40,6 +41,16 @@ changeTree model tree =
             { model | realTree = tree, currentTree = tree }
     in
         ( newModel, Cmd.none )
+
+
+{-| Change the current Tree if the file System watch an update
+-}
+treeMutation : Bool -> Model -> ( Model, Cmd Message )
+treeMutation bool model =
+    if bool then
+        ( model, Port.getTree (Model.now model) )
+    else
+        ( model, Cmd.none )
 
 
 {-| Perform a modification in the history using a function

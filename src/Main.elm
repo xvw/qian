@@ -17,6 +17,7 @@ subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.batch
         [ Port.retreiveTree ChangeTree
+        , Port.treeMutation TreeMutation
         ]
 
 
@@ -33,6 +34,9 @@ update message model =
 
         NavigateHistory newHistory ->
             Action.navigateHistory model newHistory
+
+        TreeMutation flag ->
+            Action.treeMutation flag model
 
 
 {-| Main program

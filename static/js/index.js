@@ -44,6 +44,8 @@ const elmApp = elm.Main.embed(container, flags);
 
 // Ports to Elm Application
 
+let watcher // the file Watcher
+
 elmApp.ports.getTree.subscribe((pwd) => {
   const dir = path.resolve(pwd)
   const tree = fs.readdirSync(dir).map((entry) => {
@@ -55,5 +57,9 @@ elmApp.ports.getTree.subscribe((pwd) => {
       , directory: fs.lstatSync(completePath).isDirectory()
     }
   });
+  if (watcher) { watcher.close() }
+  watcher = fs.watch(dir, { encoding: 'buffer' }, (et, fn) => {
+    elmApp.ports.treeMutation.send(true)
+  })
   elmApp.ports.retreiveTree.send(tree)
 });

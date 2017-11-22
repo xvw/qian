@@ -8,6 +8,7 @@ import Zipper.History as History exposing (History)
 
 
 type Message
-    = ChangeDir File.Path
-    | NavigateHistory (History File.Path)
-    | ChangeTree File.Tree
+    = ChangeDir File.Path -- When a "cd" is required
+    | NavigateHistory (History File.Path) -- Using the button pred/next
+    | ChangeTree File.Tree -- Retreive the file tree via Sub
+    | TreeMutation Bool -- Retreive a Tree mutation via Sub
