@@ -1,6 +1,7 @@
 module Action
     exposing
         ( changeDir
+        , navigateHistory
         )
 
 {-| Provide all "action" of the application
@@ -17,6 +18,11 @@ import File
 changeDir : Model -> File.Path -> ( Model, Cmd Message )
 changeDir model newPath =
     changeHistory model (\history -> History.push history newPath)
+
+
+navigateHistory : Model -> History File.Path -> ( Model, Cmd Message )
+navigateHistory model newHistory =
+    ( { model | history = newHistory }, Cmd.none )
 
 
 {-| Perform a modification in the history using a function

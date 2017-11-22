@@ -22,8 +22,8 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     height: 100vh;
-    background-color: #111111;
-    color: #666666;
+    background-color: #121212;
+    color: #555;
 }
 
 a {
@@ -66,4 +66,23 @@ header {
 
 .breadcrumb > .crumb > .current {
   color: #999999;
+}
+
+
+.history-buttons > i {
+  margin-left: 4px;
+  transition: color 0.2s;
+}
+.history-buttons > .disabled {
+  color: #333;
+  cursor: default;
+}
+
+.history-buttons > .enabled {
+  color: #999;
+  cursor: pointer;
+}
+
+.history-buttons > .enabled:hover {
+  color: #fff;
 }

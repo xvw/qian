@@ -25,6 +25,9 @@ update message model =
         ChangeDir newDir ->
             Action.changeDir model newDir
 
+        NavigateHistory newHistory ->
+            Action.navigateHistory model newHistory
+
 
 {-| Main program
 -}
