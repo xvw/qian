@@ -29,7 +29,7 @@ render currentPath tree =
 
 {-| Render an item of the tree into a <li>
 -}
-mapTree : File.FromFinder -> Html Message
+mapTree : File.Item -> Html Message
 mapTree item =
     li
         [ onClick (OpenItem item) ]

@@ -56,7 +56,7 @@ treeMutation model flag =
 
 {-| Open a folder or a file
 -}
-openItem : Model -> File.FromFinder -> ( Model, Cmd Message )
+openItem : Model -> File.Item -> ( Model, Cmd Message )
 openItem model file =
     if file.directory then
         changeDir model file.path

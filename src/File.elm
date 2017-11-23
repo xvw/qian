@@ -4,7 +4,7 @@ module File
         , Tree
         , ExpandedPath
         , PathMember(..)
-        , FromFinder
+        , Item
         , expandPath
         , split
         , join
@@ -25,7 +25,7 @@ type alias Path =
 -}
 type PathMember
     = Root
-    | Item Path
+    | Member Path
 
 
 {-| This type is for representing a path with relative and absolute name.
@@ -39,7 +39,7 @@ type alias ExpandedPath =
 
 {-| Represents a file coming from the Finder
 -}
-type alias FromFinder =
+type alias Item =
     { name : String
     , path : Path
     , directory : Bool
@@ -50,7 +50,7 @@ type alias FromFinder =
 {-| Represent a list of File from the Finder
 -}
 type alias Tree =
-    List FromFinder
+    List Item
 
 
 trailSlashes : Path -> Path
@@ -103,7 +103,7 @@ expander element path =
             [ { relative = Root, absolute = "/" } ]
 
         x :: xs ->
-            { relative = Item element
+            { relative = Member element
             , absolute = join [ x.absolute, element ]
             }
                 :: path

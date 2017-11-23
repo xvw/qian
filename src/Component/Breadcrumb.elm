@@ -67,5 +67,5 @@ pathMemberToText expandedPathFile =
         Root ->
             text "Root"
 
-        Item name ->
+        Member name ->
             text name
