@@ -160,6 +160,7 @@ footer {
 /* Relative to the ToolBox */
 .tool-box > a {
   transition: color 0.2s;
+  margin: 0 4px;
 }
 
 .tool-box > a:hover {

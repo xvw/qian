@@ -13,4 +13,5 @@ type Message
     | ChangeTree File.Tree -- Retreive the file tree via Sub
     | OpenItem File.Item -- Open a file or a folder
     | OpenInFinder -- Open current path into Finder
+    | OpenInTerminal -- Open current path into a terminal
     | TreeMutation Bool -- Retreive a Tree mutation via Sub

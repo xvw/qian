@@ -6,6 +6,7 @@ module Action
         , treeMutation
         , openItem
         , openInFinder
+        , openInTerminal
         )
 
 {-| Provide all "action" of the application
@@ -74,6 +75,25 @@ openInFinder model =
             Model.now model
     in
         ( model, Port.openInFinder currentPath )
+
+
+{-| Open current Path into a terminal
+-}
+openInTerminal : Model -> ( Model, Cmd Message )
+openInTerminal model =
+    let
+        currentPath =
+            Model.now model
+
+        terminal =
+            model.config.terminal
+
+        params =
+            { app = terminal
+            , path = currentPath
+            }
+    in
+        ( model, Port.openInTerminal params )
 
 
 {-| Perform a modification in the history using a function

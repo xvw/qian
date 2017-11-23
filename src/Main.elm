@@ -41,6 +41,9 @@ update message model =
         OpenInFinder ->
             Action.openInFinder model
 
+        OpenInTerminal ->
+            Action.openInTerminal model
+
         TreeMutation flag ->
             Action.treeMutation model flag
 

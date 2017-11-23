@@ -4,6 +4,7 @@ import electron from 'electron'
 import path from 'path'
 import fs from 'fs'
 import elm from '../../src/Main.elm'
+import * as childProcess from 'child_process'
 
 const {shell, remote} = electron
 const {app} = remote
@@ -75,4 +76,9 @@ elmApp.ports.openFile.subscribe((pwd) => {
 elmApp.ports.openInFinder.subscribe((pwd) => {
   const dir = path.resolve(pwd)
   shell.showItemInFolder(dir)
-})
+});
+
+elmApp.ports.openInTerminal.subscribe((input) => {
+  const dir = path.resolve(input.path)
+  childProcess.spawn('open', ['-a', input.app, dir])
+});

@@ -1,16 +1,24 @@
 port module Port
     exposing
-        ( getTree
+        ( Terminal
+        , getTree
         , retreiveTree
         , treeMutation
         , openFile
         , openInFinder
+        , openInTerminal
         )
 
 {-| JavaScript interopt
 -}
 
 import File
+
+
+type alias Terminal =
+    { app : String
+    , path : File.Path
+    }
 
 
 {-| Get the tree of files from a Path
@@ -36,3 +44,8 @@ port openFile : File.Path -> Cmd msg
 {-| Open a path in a Finder
 -}
 port openInFinder : File.Path -> Cmd msg
+
+
+{-| Open a path in a terminal
+-}
+port openInTerminal : Terminal -> Cmd msg

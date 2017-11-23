@@ -5,7 +5,6 @@ module Component.ToolBox exposing (render)
 
 import Model exposing (Model)
 import Message exposing (Message(..))
-import File
 import Component.Helper exposing (icon)
 import Html.Attributes as Attr
 import Html.Events exposing (onClick)
@@ -28,13 +27,24 @@ render model =
     in
         div
             [ Attr.class "tool-box" ]
-            [ finderButton currentPath ]
+            [ finderButton
+            , terminalButton
+            ]
 
 
 {-| Create the "open in finder Button"
 -}
-finderButton : File.Path -> Html Message
-finderButton currentPath =
+finderButton : Html Message
+finderButton =
     a
         [ Attr.href "#", onClick OpenInFinder ]
         [ icon "folder-open" ]
+
+
+{-| Create the "open in terminal Button"
+-}
+terminalButton : Html Message
+terminalButton =
+    a
+        [ Attr.href "#", onClick OpenInTerminal ]
+        [ icon "window-maximize" ]
