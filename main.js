@@ -10,7 +10,11 @@ let mainWindow
 function createWindow () {
   mainWindow = new BrowserWindow({
     width: 960,
-    height: 640
+    height: 640,
+    backgroundColor:"#000",
+    frame:true,
+    resizable:true,
+    autoHideMenuBar: true
   })
   mainWindow.loadURL(`file://${ __dirname }/static/index.html`)
   //mainWindow.webContents.openDevTools()

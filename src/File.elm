@@ -9,6 +9,7 @@ module File
         , split
         , join
         , trailSlashes
+        , parent
         )
 
 {-| Some helpers to deal with files !
@@ -107,3 +108,18 @@ expander element path =
             , absolute = join [ x.absolute, element ]
             }
                 :: path
+
+
+{-| Get the parent of a file
+-}
+parent : Path -> Maybe Path
+parent path =
+    case List.reverse (split path) of
+        x :: y :: tl ->
+            (y :: tl)
+                |> List.reverse
+                |> join
+                |> Just
+
+        _ ->
+            Nothing

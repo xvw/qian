@@ -125,11 +125,18 @@ header {
   color: #888;
 }
 
+
 .tree-view > ul > li > .item-name {
   transition: color 0.05s;
   color: #777;
 }
 
+.tree-view > ul > li > .parent-name {
+  transition: color 0.05s;
+  color: #444;
+}
+
+.tree-view > ul > li:hover > .parent-name,
 .tree-view > ul > li:hover > .item-name {
   color: #fff;
 }

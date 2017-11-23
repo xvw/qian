@@ -24,7 +24,7 @@ render : File.Path -> File.Tree -> Html Message
 render currentPath tree =
     ul
         []
-        (List.map mapTree tree)
+        ((parentButton currentPath) ++ (List.map mapTree tree))
 
 
 {-| Render an item of the tree into a <li>
@@ -46,3 +46,20 @@ iconFor isDirectory =
         iconCustom "folder" [ "directory" ] []
     else
         iconCustom "file" [ "file" ] []
+
+
+{-| Returns the "go to parent" button
+-}
+parentButton : File.Path -> List (Html Message)
+parentButton path =
+    case File.parent path of
+        Nothing ->
+            []
+
+        Just parent ->
+            [ li
+                [ Attr.class "parent", onClick (ChangeDir parent) ]
+                [ iconCustom "level-up" [ "parent" ] []
+                , span [ Attr.class "parent-name" ] [ text parent ]
+                ]
+            ]
