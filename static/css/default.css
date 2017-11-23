@@ -48,6 +48,13 @@ header {
   flex-direction: row;
 }
 
+footer {
+  padding: 8px;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+}
+
 
 /* Relative to breadcrumb */
 
@@ -143,4 +150,18 @@ header {
 
 .tree-view > ul > li:hover > i {
   color: #BBB;
+}
+
+/* Relative to the search bar */
+.search-bar {
+  flex: 1;
+}
+
+/* Relative to the ToolBox */
+.tool-box > a {
+  transition: color 0.2s;
+}
+
+.tool-box > a:hover {
+  color: #fff;
 }

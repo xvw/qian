@@ -18,6 +18,8 @@ import Html.Attributes as Attr
 import Component.Breadcrumb as Breadcrumb
 import Component.HistoryButtons as HistoryButtons
 import Component.TreeView as TreeView
+import Component.SearchBar as SearchBar
+import Component.ToolBox as ToolBox
 
 
 {-| The global view of the Application.
@@ -39,5 +41,7 @@ global model =
                 [ TreeView.render currentPath model.currentTree ]
             , footer
                 []
-                [ text "footer" ]
+                [ SearchBar.render
+                , ToolBox.render model
+                ]
             ]

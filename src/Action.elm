@@ -5,6 +5,7 @@ module Action
         , changeTree
         , treeMutation
         , openItem
+        , openInFinder
         )
 
 {-| Provide all "action" of the application
@@ -62,6 +63,17 @@ openItem model file =
         changeDir model file.path
     else
         ( model, Port.openFile file.path )
+
+
+{-| Open current Path into a finder
+-}
+openInFinder : Model -> ( Model, Cmd Message )
+openInFinder model =
+    let
+        currentPath =
+            Model.now model
+    in
+        ( model, Port.openInFinder currentPath )
 
 
 {-| Perform a modification in the history using a function

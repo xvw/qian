@@ -70,3 +70,9 @@ elmApp.ports.openFile.subscribe((pwd) => {
   const dir = path.resolve(pwd)
   shell.openItem(dir)
 });
+
+// Open folder in finder
+elmApp.ports.openInFinder.subscribe((pwd) => {
+  const dir = path.resolve(pwd)
+  shell.showItemInFolder(dir)
+})

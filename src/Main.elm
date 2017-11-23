@@ -38,6 +38,9 @@ update message model =
         OpenItem target ->
             Action.openItem model target
 
+        OpenInFinder ->
+            Action.openInFinder model
+
         TreeMutation flag ->
             Action.treeMutation model flag
 

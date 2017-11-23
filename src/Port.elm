@@ -4,6 +4,7 @@ port module Port
         , retreiveTree
         , treeMutation
         , openFile
+        , openInFinder
         )
 
 {-| JavaScript interopt
@@ -30,3 +31,8 @@ port treeMutation : (Bool -> msg) -> Sub msg
 {-| Open a file with a default program
 -}
 port openFile : File.Path -> Cmd msg
+
+
+{-| Open a path in a Finder
+-}
+port openInFinder : File.Path -> Cmd msg

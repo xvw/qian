@@ -12,4 +12,5 @@ type Message
     | NavigateHistory (History File.Path) -- Using the button pred/next
     | ChangeTree File.Tree -- Retreive the file tree via Sub
     | OpenItem File.Item -- Open a file or a folder
+    | OpenInFinder -- Open current path into Finder
     | TreeMutation Bool -- Retreive a Tree mutation via Sub
