@@ -73,9 +73,17 @@ trailSlashes path =
 -}
 join : List Path -> Path
 join members =
-    members
-        |> List.map trailSlashes
-        |> String.join "/"
+    case members of
+        [] ->
+            "/"
+
+        [ x ] ->
+            x ++ "/"
+
+        _ :: _ ->
+            members
+                |> List.map trailSlashes
+                |> String.join "/"
 
 
 {-| Split Path into a list of path
@@ -115,6 +123,9 @@ expander element path =
 parent : Path -> Maybe Path
 parent path =
     case List.reverse (split path) of
+        "" :: "" :: _ ->
+            Nothing
+
         x :: y :: tl ->
             (y :: tl)
                 |> List.reverse
