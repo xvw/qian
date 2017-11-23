@@ -4,6 +4,7 @@ module Action
         , navigateHistory
         , changeTree
         , treeMutation
+        , openItem
         )
 
 {-| Provide all "action" of the application
@@ -45,12 +46,22 @@ changeTree model tree =
 
 {-| Change the current Tree if the file System watch an update
 -}
-treeMutation : Bool -> Model -> ( Model, Cmd Message )
-treeMutation bool model =
-    if bool then
+treeMutation : Model -> Bool -> ( Model, Cmd Message )
+treeMutation model flag =
+    if flag then
         ( model, Port.getTree (Model.now model) )
     else
         ( model, Cmd.none )
+
+
+{-| Open a folder or a file
+-}
+openItem : Model -> File.FromFinder -> ( Model, Cmd Message )
+openItem model file =
+    if file.directory then
+        changeDir model file.path
+    else
+        ( model, Port.openFile file.path )
 
 
 {-| Perform a modification in the history using a function

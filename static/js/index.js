@@ -5,8 +5,8 @@ import path from 'path'
 import fs from 'fs'
 import elm from '../../src/Main.elm'
 
-const remote = electron.remote
-const app = remote.app
+const {shell, remote} = electron
+const {app} = remote
 
 
 // A default configuration (actually, it is supported
@@ -46,6 +46,7 @@ const elmApp = elm.Main.embed(container, flags);
 
 let watcher // the file Watcher
 
+// Watch and get treeFile
 elmApp.ports.getTree.subscribe((pwd) => {
   const dir = path.resolve(pwd)
   const tree = fs.readdirSync(dir).map((entry) => {
@@ -62,4 +63,10 @@ elmApp.ports.getTree.subscribe((pwd) => {
     elmApp.ports.treeMutation.send(true)
   })
   elmApp.ports.retreiveTree.send(tree)
+});
+
+// Open File with a default program
+elmApp.ports.openFile.subscribe((pwd) => {
+  const dir = path.resolve(pwd)
+  shell.openItem(dir)
 });

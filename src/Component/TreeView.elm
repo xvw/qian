@@ -32,7 +32,7 @@ render currentPath tree =
 mapTree : File.FromFinder -> Html Message
 mapTree item =
     li
-        []
+        [ onClick (OpenItem item) ]
         [ iconFor item.directory
         , span [ Attr.class "item-name" ] [ text item.name ]
         ]

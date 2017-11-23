@@ -35,8 +35,11 @@ update message model =
         NavigateHistory newHistory ->
             Action.navigateHistory model newHistory
 
+        OpenItem target ->
+            Action.openItem model target
+
         TreeMutation flag ->
-            Action.treeMutation flag model
+            Action.treeMutation model flag
 
 
 {-| Main program

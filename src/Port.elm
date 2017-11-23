@@ -3,6 +3,7 @@ port module Port
         ( getTree
         , retreiveTree
         , treeMutation
+        , openFile
         )
 
 {-| JavaScript interopt
@@ -24,3 +25,8 @@ port retreiveTree : (File.Tree -> msg) -> Sub msg
 {-| Watch the TreeMutation
 -}
 port treeMutation : (Bool -> msg) -> Sub msg
+
+
+{-| Open a file with a default program
+-}
+port openFile : File.Path -> Cmd msg
