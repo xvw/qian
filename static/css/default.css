@@ -127,10 +127,11 @@ header {
 
 .tree-view > ul > li > .item-name {
   transition: color 0.05s;
+  color: #777;
 }
 
 .tree-view > ul > li:hover > .item-name {
-  color: #BBB;
+  color: #fff;
 }
 
 .tree-view > ul > li:hover > i {
