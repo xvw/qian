@@ -7,6 +7,7 @@ module Action
         , openItem
         , openInFinder
         , openInTerminal
+        , toggleDisplayHiddenItem
         )
 
 {-| Provide all "action" of the application
@@ -17,6 +18,33 @@ import Message exposing (Message(..))
 import Zipper.History as History exposing (History)
 import File
 import Port
+
+
+{-| Compute the "displayed" tree of a Model
+-}
+computeCurrentTree : Model -> Model
+computeCurrentTree model =
+    let
+        newTree =
+            if not model.displayHiddenItem then
+                model
+                    |> .realTree
+                    |> List.filter (\f -> not f.hidden)
+            else
+                model.realTree
+    in
+        { model | currentTree = newTree }
+
+
+{-| Activate/Deactivate the display of Hidden Files/folders
+-}
+toggleDisplayHiddenItem : Model -> ( Model, Cmd Message )
+toggleDisplayHiddenItem model =
+    let
+        newModel =
+            { model | displayHiddenItem = not model.displayHiddenItem }
+    in
+        ( computeCurrentTree newModel, Cmd.none )
 
 
 {-| Perform a "dir changement"
@@ -42,6 +70,7 @@ changeTree model tree =
     let
         newModel =
             { model | realTree = tree, currentTree = tree }
+                |> computeCurrentTree
     in
         ( newModel, Cmd.none )
 

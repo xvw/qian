@@ -26,6 +26,9 @@ subscriptions model =
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
     case message of
+        ToggleDisplayHiddenItem ->
+            Action.toggleDisplayHiddenItem model
+
         ChangeDir newDir ->
             Action.changeDir model newDir
 

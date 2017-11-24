@@ -23,6 +23,7 @@ type alias Model =
     , history : History File.Path -- History and current Path
     , realTree : File.Tree -- The real current file tree
     , currentTree : File.Tree -- The tree to be filtered (and displayed)
+    , displayHiddenItem : Bool -- Show (or not) the hidden files
     }
 
 
@@ -50,6 +51,7 @@ init flags =
       , history = History.new flags.current
       , realTree = []
       , currentTree = []
+      , displayHiddenItem = False
       }
     , Port.getTree flags.current
     )

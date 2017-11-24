@@ -27,9 +27,26 @@ render model =
     in
         div
             [ Attr.class "tool-box" ]
-            [ finderButton
+            [ hiddenButton model.displayHiddenItem
+            , finderButton
             , terminalButton
             ]
+
+
+{-| Create the "display/hide" button
+-}
+hiddenButton : Bool -> Html Message
+hiddenButton toggler =
+    let
+        iconName =
+            if toggler then
+                "eye-slash"
+            else
+                "eye"
+    in
+        a
+            [ Attr.href "#", onClick ToggleDisplayHiddenItem ]
+            [ icon iconName ]
 
 
 {-| Create the "open in finder Button"
