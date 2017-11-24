@@ -24,6 +24,7 @@ type alias Model =
     , realTree : File.Tree -- The real current file tree
     , currentTree : File.Tree -- The tree to be filtered (and displayed)
     , displayHiddenItem : Bool -- Show (or not) the hidden files
+    , searchState : String -- The state of the search bar !
     }
 
 
@@ -52,6 +53,7 @@ init flags =
       , realTree = []
       , currentTree = []
       , displayHiddenItem = False
+      , searchState = ""
       }
     , Port.getTree flags.current
     )

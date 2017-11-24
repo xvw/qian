@@ -16,3 +16,4 @@ type Message
     | OpenInTerminal -- Open current path into a terminal
     | TreeMutation Bool -- Retreive a Tree mutation via Sub
     | ToggleDisplayHiddenItem -- Activate/deactivate the visibility of hidden files
+    | RecordSearchState String -- Track the search changement

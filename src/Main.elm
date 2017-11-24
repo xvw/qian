@@ -50,6 +50,9 @@ update message model =
         TreeMutation flag ->
             Action.treeMutation model flag
 
+        RecordSearchState content ->
+            Action.recordSearchState model content
+
 
 {-| Main program
 -}

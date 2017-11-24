@@ -8,6 +8,7 @@ module Action
         , openInFinder
         , openInTerminal
         , toggleDisplayHiddenItem
+        , recordSearchState
         )
 
 {-| Provide all "action" of the application
@@ -34,6 +35,17 @@ computeCurrentTree model =
                 model.realTree
     in
         { model | currentTree = newTree }
+
+
+{-| Track the input changement for search
+-}
+recordSearchState : Model -> String -> ( Model, Cmd Message )
+recordSearchState model newSearch =
+    let
+        newModel =
+            { model | searchState = newSearch }
+    in
+        ( newModel, Cmd.none )
 
 
 {-| Activate/Deactivate the display of Hidden Files/folders
