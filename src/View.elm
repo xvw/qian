@@ -41,7 +41,7 @@ global model =
                 [ TreeView.render currentPath model.currentTree ]
             , footer
                 []
-                [ SearchBar.render
+                [ SearchBar.render ""
                 , ToolBox.render model
                 ]
             ]

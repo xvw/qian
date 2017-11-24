@@ -51,9 +51,7 @@ renderCrumb currentPath crumb =
         ]
     else
         [ a
-            [ Attr.href "#"
-            , onClick (ChangeDir crumb.absolute)
-            ]
+            [ onClick (ChangeDir crumb.absolute) ]
             [ pathMemberToText crumb ]
         , icon "angle-right"
         ]

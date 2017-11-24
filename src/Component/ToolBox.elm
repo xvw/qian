@@ -45,7 +45,7 @@ hiddenButton toggler =
                 "eye"
     in
         a
-            [ Attr.href "#", onClick ToggleDisplayHiddenItem ]
+            [ onClick ToggleDisplayHiddenItem ]
             [ icon iconName ]
 
 
@@ -54,7 +54,7 @@ hiddenButton toggler =
 finderButton : Html Message
 finderButton =
     a
-        [ Attr.href "#", onClick OpenInFinder ]
+        [ onClick OpenInFinder ]
         [ icon "folder-open" ]
 
 
@@ -63,5 +63,5 @@ finderButton =
 terminalButton : Html Message
 terminalButton =
     a
-        [ Attr.href "#", onClick OpenInTerminal ]
+        [ onClick OpenInTerminal ]
         [ icon "window-maximize" ]

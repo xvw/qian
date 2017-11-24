@@ -11,6 +11,13 @@ html {
 background:transparent;
 }
 
+
+input::selection {
+  background-color: #FFF;
+  color: #000;
+  padding: 4px;
+}
+
 /* Generic Rules */
 
 .sans-serif {
@@ -33,6 +40,7 @@ body {
 a {
   color: #555555;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .inner-app {
@@ -113,10 +121,10 @@ footer {
 }
 
 .tree-view > ul > li {
-  cursor: pointer;
   list-style: none;
   padding: 3px 8px;
   margin: 0;
+  cursor: pointer;
 }
 
 .tree-view > ul > li > i {
@@ -155,7 +163,34 @@ footer {
 /* Relative to the search bar */
 .search-bar {
   flex: 1;
+  display: flex;
+  flex-direction: row;
 }
+
+.search-bar > input {
+  flex: 1;
+  border-style: none;
+  border-left: 6px solid transparent;
+  background-color: transparent;
+  color: #999;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 100%;
+
+}
+
+.search-bar > input:focus {
+  outline: none;
+}
+
+.search-bar > input::-webkit-input-placeholder {
+  color: #333;
+}
+
+.search-bar > input::placeholder {
+  color: #333;
+}
+
+
 
 /* Relative to the ToolBox */
 .tool-box > a {
