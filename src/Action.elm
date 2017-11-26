@@ -38,7 +38,7 @@ filterHidden showHidden tree =
 filterSearch : String -> File.Tree -> File.Tree
 filterSearch pred tree =
     if not (String.isEmpty pred) then
-        List.filter ((Fuzzy.match pred) << .name) tree
+        Fuzzy.filter .name pred tree
     else
         tree
 
