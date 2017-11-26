@@ -20,6 +20,7 @@ import Zipper.History as History exposing (History)
 import File
 import Port
 import Simple.Fuzzy as Fuzzy
+import SearchState exposing (SearchState(..))
 
 
 {-| Filter hidden/not hidden files
@@ -67,11 +68,26 @@ cleanSearchField model =
 recordSearchState : Model -> String -> ( Model, Cmd Message )
 recordSearchState model newSearch =
     let
-        newModel =
-            { model | searchState = newSearch }
-                |> computeCurrentTree
+        path =
+            Model.now model
     in
-        ( newModel, Cmd.none )
+        case SearchState.nextStep path newSearch model.currentTree of
+            ToParent dir ->
+                changeDir model dir
+
+            ToHome ->
+                changeDir model model.homePath
+
+            ToDir dir ->
+                openItem model dir
+
+            StayHere search ->
+                let
+                    newModel =
+                        { model | searchState = search }
+                            |> computeCurrentTree
+                in
+                    ( newModel, Cmd.none )
 
 
 {-| Activate/Deactivate the display of Hidden Files/folders
@@ -92,6 +108,8 @@ changeDir model newPath =
     changeHistory model (\history -> History.push history newPath)
 
 
+{-| Navigate in the history (pred/next)
+-}
 navigateHistory : Model -> History File.Path -> ( Model, Cmd Message )
 navigateHistory model newHistory =
     let

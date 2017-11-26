@@ -25,6 +25,7 @@ type alias Model =
     , currentTree : File.Tree -- The tree to be filtered (and displayed)
     , displayHiddenItem : Bool -- Show (or not) the hidden files
     , searchState : String -- The state of the search bar !
+    , homePath : File.Path -- The home path
     }
 
 
@@ -54,6 +55,7 @@ init flags =
       , currentTree = []
       , displayHiddenItem = False
       , searchState = ""
+      , homePath = flags.home
       }
     , Port.getTree flags.current
     )
