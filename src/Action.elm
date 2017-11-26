@@ -19,6 +19,27 @@ import Message exposing (Message(..))
 import Zipper.History as History exposing (History)
 import File
 import Port
+import Simple.Fuzzy as Fuzzy
+
+
+{-| Filter hidden/not hidden files
+-}
+filterHidden : Bool -> File.Tree -> File.Tree
+filterHidden showHidden tree =
+    if not showHidden then
+        List.filter (\f -> not f.hidden) tree
+    else
+        tree
+
+
+{-| Filter by search
+-}
+filterSearch : String -> File.Tree -> File.Tree
+filterSearch pred tree =
+    if not (String.isEmpty pred) then
+        List.filter ((Fuzzy.match pred) << .name) tree
+    else
+        tree
 
 
 {-| Compute the "displayed" tree of a Model
@@ -27,14 +48,18 @@ computeCurrentTree : Model -> Model
 computeCurrentTree model =
     let
         newTree =
-            if not model.displayHiddenItem then
-                model
-                    |> .realTree
-                    |> List.filter (\f -> not f.hidden)
-            else
-                model.realTree
+            model.realTree
+                |> filterHidden model.displayHiddenItem
+                |> filterSearch model.searchState
     in
         { model | currentTree = newTree }
+
+
+{-| Clean the search field
+-}
+cleanSearchField : Model -> Model
+cleanSearchField model =
+    { model | searchState = "" }
 
 
 {-| Track the input changement for search
@@ -44,6 +69,7 @@ recordSearchState model newSearch =
     let
         newModel =
             { model | searchState = newSearch }
+                |> computeCurrentTree
     in
         ( newModel, Cmd.none )
 
@@ -71,6 +97,7 @@ navigateHistory model newHistory =
     let
         newModel =
             { model | history = newHistory }
+                |> cleanSearchField
     in
         ( newModel, Port.getTree (Model.now newModel) )
 
@@ -144,5 +171,6 @@ changeHistory model f =
     let
         newModel =
             { model | history = f model.history }
+                |> cleanSearchField
     in
         ( newModel, Port.getTree (Model.now newModel) )
