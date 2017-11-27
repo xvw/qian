@@ -1,7 +1,6 @@
 module Model
     exposing
         ( Model
-        , Configuration
         , Flags
         , State(..)
         , init
@@ -14,9 +13,11 @@ module Model
 import Message exposing (Message(..))
 import Zipper.History as History exposing (History)
 import File
-import Port
+import Port exposing (Configuration)
 
 
+{-| A Poor RemoteData
+-}
 type State
     = Explore
     | Configure { inputState : String }
@@ -34,12 +35,6 @@ type alias Model =
     , homePath : File.Path -- The home path
     , state : State
     }
-
-
-{-| Describe the configuration of the Application
--}
-type alias Configuration =
-    { terminal : String }
 
 
 {-| Describe the input from JavaScript

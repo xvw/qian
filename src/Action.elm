@@ -9,8 +9,10 @@ module Action
         , openInTerminal
         , toggleDisplayHiddenItem
         , recordSearchState
+        , recordConfigTerminal
         , goToSettings
         , goToTree
+        , changeDefaultTerminal
         )
 
 {-| Provide all "action" of the application
@@ -48,6 +50,28 @@ goToTree model =
             { model | state = Explore }
     in
         ( newModel, Cmd.none )
+
+
+{-| Change de Default Terminal
+-}
+changeDefaultTerminal : Model -> ( Model, Cmd Message )
+changeDefaultTerminal model =
+    case model.state of
+        Explore ->
+            ( model, Cmd.none )
+
+        Configure state ->
+            let
+                config =
+                    model.config
+
+                newConfig =
+                    { config | terminal = state.inputState }
+
+                newModel =
+                    { model | state = Explore, config = newConfig }
+            in
+                ( newModel, Port.changeTerminal newConfig )
 
 
 {-| Filter hidden/not hidden files
@@ -88,6 +112,22 @@ computeCurrentTree model =
 cleanSearchField : Model -> Model
 cleanSearchField model =
     { model | searchState = "" }
+
+
+{-| Track the input changement for terminal
+-}
+recordConfigTerminal : Model -> String -> ( Model, Cmd Message )
+recordConfigTerminal model newTerminal =
+    case model.state of
+        Configure _ ->
+            let
+                newModel =
+                    { model | state = Configure { inputState = newTerminal } }
+            in
+                ( newModel, Cmd.none )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 {-| Track the input changement for search

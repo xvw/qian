@@ -53,11 +53,17 @@ update message model =
         RecordSearchState content ->
             Action.recordSearchState model content
 
+        RecordConfigTerminal content ->
+            Action.recordConfigTerminal model content
+
         GoToSettings ->
             Action.goToSettings model
 
         GoToTree ->
             Action.goToTree model
+
+        ChangeDefaultTerminal ->
+            Action.changeDefaultTerminal model
 
 
 {-| Main program

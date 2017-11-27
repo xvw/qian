@@ -18,23 +18,36 @@ const defaultConfig = {
 
 
 // Retreive the configuration object
-function getConfigObject(){
+function getConfigObject(config){
   const homeDir   = app.getPath('home')
   const qianDir   = path.join(homeDir, '.qian')
   const qianFile  = path.join(qianDir, 'profil.json')
-  if (!fs.existsSync(qianDir)){
-    fs.mkdirSync(qianDir)
-    fs.writeFileSync(qianFile, JSON.stringify(defaultConfig))
+  if (!fs.existsSync(qianDir)) {
+    fs.mkdirSync(qianDir);
+  }
+  if (!fs.existsSync(qianFile)){
+    fs.writeFileSync(qianFile, JSON.stringify(config))
     return defaultConfig;
   }
   return JSON.parse(fs.readFileSync(qianFile))
+}
+
+// Rewrite the configuration file
+function rewriteConfiguration(config) {
+  const homeDir   = app.getPath('home')
+  const qianDir   = path.join(homeDir, '.qian')
+  const qianFile  = path.join(qianDir, 'profil.json')
+  if (!fs.existsSync(qianDir)) {
+    fs.mkdirSync(qianDir);
+  }
+  fs.writeFileSync(qianFile, JSON.stringify(config))
 }
 
 
 // Define the flag to be passed to the Elm Program
 const flags = {
   current : path.resolve(".")
-, config  : getConfigObject()
+, config  : getConfigObject(defaultConfig)
 , home    : path.resolve(app.getPath('home'))
 , root    : '/'
 }
@@ -81,4 +94,8 @@ elmApp.ports.openInFinder.subscribe((pwd) => {
 elmApp.ports.openInTerminal.subscribe((input) => {
   const dir = path.resolve(input.path)
   childProcess.spawn('open', ['-a', input.app, dir])
+});
+
+elmApp.ports.changeTerminal.subscribe((config) => {
+  rewriteConfiguration(config)
 });

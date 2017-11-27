@@ -1,12 +1,14 @@
 port module Port
     exposing
         ( Terminal
+        , Configuration
         , getTree
         , retreiveTree
         , treeMutation
         , openFile
         , openInFinder
         , openInTerminal
+        , changeTerminal
         )
 
 {-| JavaScript interopt
@@ -15,6 +17,14 @@ port module Port
 import File
 
 
+{-| Represent the configuration of an application
+-}
+type alias Configuration =
+    { terminal : String }
+
+
+{-| Represent a terminal call
+-}
 type alias Terminal =
     { app : String
     , path : File.Path
@@ -49,3 +59,8 @@ port openInFinder : File.Path -> Cmd msg
 {-| Open a path in a terminal
 -}
 port openInTerminal : Terminal -> Cmd msg
+
+
+{-| Change the current terminal
+-}
+port changeTerminal : Configuration -> Cmd msg

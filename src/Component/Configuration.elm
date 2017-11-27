@@ -3,10 +3,9 @@ module Component.Configuration exposing (render)
 {-| The configuration Pan
 -}
 
-import Model exposing (Model)
 import Message exposing (Message(..))
 import Html.Attributes as Attr
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import Html
     exposing
         ( Html
@@ -31,11 +30,12 @@ render state =
             , input
                 [ Attr.value state
                 , Attr.type_ "text"
+                , onInput RecordConfigTerminal
                 ]
                 []
             , button
                 [ Attr.class "save-btn"
-                , onClick GoToTree
+                , onClick ChangeDefaultTerminal
                 ]
                 [ text "Save" ]
             , br [] []
