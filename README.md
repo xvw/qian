@@ -36,6 +36,7 @@ In addition, if a feature seems interesting to implement, let's talk about it in
 -  `make build` to build the application
 -  `make run` to run the buildt application
 -  `make` (a combo of `make build` and `make run`)
+-  `make app` to create a runnable app on OSX
 
 
 ## Credits

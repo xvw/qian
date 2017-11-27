@@ -19,3 +19,5 @@ Temporary Items
 elm-stuff
 node_modules
 dist/bundle.js
+qian-darwin-x64
+.tool-versions
