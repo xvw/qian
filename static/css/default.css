@@ -33,7 +33,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     height: 100vh;
-    background-color: #121212;
+    background-color: #010101;
     color: #555;
 }
 
@@ -108,7 +108,6 @@ footer {
 }
 
 /* Relative to the tree view */
-
 .tree-view {
   flex: 1;
   padding: 8px;
@@ -128,7 +127,7 @@ footer {
 }
 
 .tree-view > ul > li > i {
-  transition: color 0.05s;
+  transition: color 0.1s;
   margin-right: 12px;
 }
 
@@ -142,12 +141,12 @@ footer {
 
 
 .tree-view > ul > li > .item-name {
-  transition: color 0.05s;
+  transition: color 0.1s;
   color: #777;
 }
 
 .tree-view > ul > li > .parent-name {
-  transition: color 0.05s;
+  transition: color 0.1s;
   color: #444;
 }
 
@@ -200,4 +199,37 @@ footer {
 
 .tool-box > a:hover {
   color: #fff;
+}
+
+
+/* Relative to the configuration's pan */
+.configure-view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #121212;
+  padding: 32px;
+}
+
+.configure-view input[type="text"] {
+  margin: 0 12px;
+  background-color: black;
+  color: white;
+  padding: 4px;
+}
+
+.configure-view button {
+  cursor: pointer;
+  padding: 4px;
+  color: white;
+  background-color: #000;
+  transition: all 0.2s;
+  border: 0px solid red;
+}
+
+.configure-view button:hover {
+  background-color: #FFF;
+  color: #000;
 }

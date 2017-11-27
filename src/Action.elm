@@ -9,18 +9,45 @@ module Action
         , openInTerminal
         , toggleDisplayHiddenItem
         , recordSearchState
+        , goToSettings
+        , goToTree
         )
 
 {-| Provide all "action" of the application
 -}
 
-import Model exposing (Model)
+import Model exposing (Model, State(..))
 import Message exposing (Message(..))
 import Zipper.History as History exposing (History)
 import File
 import Port
 import Simple.Fuzzy as Fuzzy
 import SearchState exposing (SearchState(..))
+
+
+{-| Go to the setting page
+-}
+goToSettings : Model -> ( Model, Cmd Message )
+goToSettings model =
+    let
+        newModel =
+            { model
+                | state =
+                    Configure { inputState = model.config.terminal }
+            }
+    in
+        ( newModel, Cmd.none )
+
+
+{-| Return to the tree page
+-}
+goToTree : Model -> ( Model, Cmd Message )
+goToTree model =
+    let
+        newModel =
+            { model | state = Explore }
+    in
+        ( newModel, Cmd.none )
 
 
 {-| Filter hidden/not hidden files
@@ -114,7 +141,7 @@ navigateHistory : Model -> History File.Path -> ( Model, Cmd Message )
 navigateHistory model newHistory =
     let
         newModel =
-            { model | history = newHistory }
+            { model | history = newHistory, state = Explore }
                 |> cleanSearchField
     in
         ( newModel, Port.getTree (Model.now newModel) )
@@ -188,7 +215,7 @@ changeHistory : Model -> (History File.Path -> History File.Path) -> ( Model, Cm
 changeHistory model f =
     let
         newModel =
-            { model | history = f model.history }
+            { model | history = f model.history, state = Explore }
                 |> cleanSearchField
     in
         ( newModel, Port.getTree (Model.now newModel) )

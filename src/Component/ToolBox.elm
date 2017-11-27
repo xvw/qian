@@ -3,7 +3,7 @@ module Component.ToolBox exposing (render)
 {-| Component for rendering the search bar
 -}
 
-import Model exposing (Model)
+import Model exposing (Model, State(..))
 import Message exposing (Message(..))
 import Component.Helper exposing (icon)
 import Html.Attributes as Attr
@@ -30,6 +30,7 @@ render model =
             [ hiddenButton model.displayHiddenItem
             , finderButton
             , terminalButton
+            , settingButton model.state
             ]
 
 
@@ -65,3 +66,12 @@ terminalButton =
     a
         [ onClick OpenInTerminal ]
         [ icon "window-maximize" ]
+
+
+{-| Create the "settings" button
+-}
+settingButton : State -> Html Message
+settingButton state =
+    a
+        [ onClick GoToSettings ]
+        [ icon "cog" ]

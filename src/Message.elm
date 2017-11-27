@@ -17,3 +17,5 @@ type Message
     | TreeMutation Bool -- Retreive a Tree mutation via Sub
     | ToggleDisplayHiddenItem -- Activate/deactivate the visibility of hidden files
     | RecordSearchState String -- Track the search changement
+    | GoToSettings -- Go to the user settings
+    | GoToTree -- Return to the treeView

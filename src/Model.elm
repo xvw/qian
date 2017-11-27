@@ -3,6 +3,7 @@ module Model
         ( Model
         , Configuration
         , Flags
+        , State(..)
         , init
         , now
         )
@@ -16,6 +17,11 @@ import File
 import Port
 
 
+type State
+    = Explore
+    | Configure { inputState : String }
+
+
 {-| Describe the model of the Application
 -}
 type alias Model =
@@ -26,6 +32,7 @@ type alias Model =
     , displayHiddenItem : Bool -- Show (or not) the hidden files
     , searchState : String -- The state of the search bar !
     , homePath : File.Path -- The home path
+    , state : State
     }
 
 
@@ -56,6 +63,7 @@ init flags =
       , displayHiddenItem = False
       , searchState = ""
       , homePath = flags.home
+      , state = Explore
       }
     , Port.getTree flags.current
     )

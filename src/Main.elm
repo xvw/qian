@@ -53,6 +53,12 @@ update message model =
         RecordSearchState content ->
             Action.recordSearchState model content
 
+        GoToSettings ->
+            Action.goToSettings model
+
+        GoToTree ->
+            Action.goToTree model
+
 
 {-| Main program
 -}
