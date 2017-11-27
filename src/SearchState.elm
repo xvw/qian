@@ -35,10 +35,7 @@ nextStep path search currentTree =
             if String.endsWith "/" elt then
                 case currentTree of
                     x :: _ ->
-                        if x.directory then
-                            ToDir x
-                        else
-                            StayHere elt
+                        ToDir x
 
                     _ ->
                         StayHere elt
