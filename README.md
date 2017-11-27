@@ -5,6 +5,8 @@
 > [Zhang Qian](https://en.wikipedia.org/wiki/Zhang_Qian), a Chinese
 > explorer. (aha get it ?)
 
+![Sample](branding/qian2.gif)
+
 
 ## Credits
 
