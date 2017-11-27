@@ -1,64 +1,78 @@
 module Main exposing (..)
 
+{-| Entry point of the Application
+-}
+
+import Html
+import View
 import Action
-import Combination
-import Html exposing (programWithFlags)
-import Architecture exposing (Message(..), Model, Flags)
-import View exposing (global)
-import Zipper.History as History
 import Port
-import Keyboard
-import Set
+import Model exposing (Model, Flags)
+import Message exposing (Message(..))
 
 
-init : Flags -> ( Model, Cmd Message )
-init flags =
-    ( { history = History.new flags.pwd
-      , home = flags.home
-      , tree = { path = "", entries = [] }
-      , displayedTree = { path = "", entries = [] }
-      , showHidden = False
-      , searchState = ""
-      , keys = Set.empty
-      }
-    , Port.ls flags.pwd
-    )
-
-
+{-| Subscriptions (discretes signals) of the app
+-}
 subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.batch
-        [ Port.getDirTree RetreiveTree
+        [ Port.retreiveTree ChangeTree
         , Port.treeMutation TreeMutation
-        , Keyboard.downs KeyDown
-        , Keyboard.ups KeyUp
         ]
 
 
+{-| Update process
+-}
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
     case message of
-        Patch f ->
-            f model
+        ToggleDisplayHiddenItem ->
+            Action.toggleDisplayHiddenItem model
 
-        RetreiveTree tree ->
-            Action.getDir tree model
+        ChangeDir newDir ->
+            Action.changeDir model newDir
+
+        ChangeTree newTree ->
+            Action.changeTree model newTree
+
+        NavigateHistory newHistory ->
+            Action.navigateHistory model newHistory
+
+        OpenItem target ->
+            Action.openItem model target
+
+        OpenInFinder ->
+            Action.openInFinder model
+
+        OpenInTerminal ->
+            Action.openInTerminal model
 
         TreeMutation flag ->
-            Action.treeMutation flag model
+            Action.treeMutation model flag
 
-        KeyUp k ->
-            Combination.keyUp k model
+        RecordSearchState content ->
+            Action.recordSearchState model content
 
-        KeyDown k ->
-            Combination.keyDown k model
+        RecordConfigTerminal content ->
+            Action.recordConfigTerminal model content
+
+        GoToSettings ->
+            Action.goToSettings model
+
+        GoToTree ->
+            Action.goToTree model
+
+        ChangeDefaultTerminal ->
+            Action.changeDefaultTerminal model
 
 
+{-| Main program
+-}
 main : Platform.Program Flags Model Message
 main =
-    programWithFlags
-        { init = init
+    Html.programWithFlags
+        { init = Model.init
         , update = update
-        , view = global
+        , view = View.global
         , subscriptions = subscriptions
         }

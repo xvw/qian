@@ -1,36 +1,24 @@
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(../fonts/roboto1.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+/* Fix and polyfils */
+
+html {
+  box-sizing: border-box;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(../fonts/roboto2.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Roboto Bold'), local('Roboto-Bold'), url(../fonts/roboto3.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+::selection {
+  background: transparent;
 }
 
-/* latin */
-@font-face {
-  font-family: 'Ubuntu Mono';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(../fonts/mono.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+input::selection {
+  background-color: #FFF;
+  color: #000;
+  padding: 4px;
 }
 
+/* Generic Rules */
 
 .sans-serif {
   font-family: 'Roboto', sans-serif;
@@ -41,163 +29,205 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #313440;
-  color: #9EA1B3;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
+  height: 100vh;
+  background-color: #151515;
+  color: #555;
 }
 
-#app > div {
+a {
+  color: #555555;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.inner-app {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
-main {
-  flex: 1;
-  padding: 12px;
-  overflow: auto;
-}
-
-header, footer {
-  background-color: #262831;
-}
-
-footer {
-  padding: 4px;
-}
-
-footer {
-  display: flex;
-}
-
-footer > div {
-  flex: 1;
-}
-
-footer input[type="text"] {
-  border-style: none;
-  background-color: transparent;
-  color: #9EA1B3;
-  font-family: 'Ubuntu Mono', monospace;
-  font-size: 120%;
-  padding: 2px;
-  flex: 6;
-}
-
-footer input[type="text"]:focus {
-  outline: none;
-}
-
-.search-box {
-  display: flex;
-}
-
-.search-box > * {
-  margin: auto;
-}
-
-.search-box input {
-  flex: 1;
-  margin-left: 4px;
-}
-
-
-
-.enabled {
-  color: #9EA1B3;
-}
-
-.disabled {
-  color: #464A5A;
-}
-
-
-
-.history-buttons {
-  text-align: right;
-  padding-right: 16px;
-}
-
-.breadcrumb {
-  padding: 4px;
-  margin: 0;
+header {
+  padding: 8px;
   background-color: black;
-  font-family: 'Ubuntu Mono', monospace;
-}
-
-.breadcrumb > li{
-  display: inline-block;
-  list-style: none;
-}
-
-.breadcrumb > li > a {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.breadcrumb > li > a:hover {
-  color: #F68479;
-}
-
-.breadcrumb .current {
-  color: #97ecc5;
-}
-
-.toolbox {
-  padding: 4px;
-  width: 100%;
   display: flex;
   flex-direction: row;
 }
 
-.toolbox > div {
+footer {
+  padding: 8px;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Relative to breadcrumb */
+
+.breadcrumb {
   flex: 1;
-  margin: auto;
+  font-family: 'Ubuntu Mono', monospace;
 }
 
-.toolbox i {
-  margin-left: 6px;
+.breadcrumb>.crumb>i {
+  padding: 0 8px;
 }
 
-.toolbox a > i {
+.breadcrumb>.crumb>a {
+  transition: color 0.2s;
+}
+
+.breadcrumb>.crumb>a:hover {
+  color: #fff;
+}
+
+.breadcrumb>.crumb>.current {
+  color: #999999;
+}
+
+/* Relative to the two history buttons */
+
+.history-buttons>i {
+  margin-left: 4px;
+  transition: color 0.2s;
+}
+
+.history-buttons>.disabled {
+  color: #333;
+  cursor: default;
+}
+
+.history-buttons>.enabled {
+  color: #999;
   cursor: pointer;
-  transition: color 0.3s;
 }
 
-.toolbox a:hover > i {
-  color: white;
+.history-buttons>.enabled:hover {
+  color: #fff;
 }
 
-.tree-elt {
-  padding: 2px 8px;
+/* Relative to the tree view */
+
+.tree-view {
+  flex: 1;
+  padding: 8px;
+  overflow: auto;
+}
+
+.tree-view>ul {
+  padding: 0;
+  margin: 0;
+}
+
+.tree-view>ul>li {
+  list-style: none;
+  padding: 3px 8px;
+  margin: 0;
   cursor: pointer;
-  display: block;
 }
 
-.tree-elt:hover {
+.tree-view>ul>li>i {
+  transition: color 0.1s;
+  margin-right: 12px;
+}
+
+.tree-view>ul>li>.directory {
+  color: #444;
+}
+
+.tree-view>ul>li>.file {
+  color: #888;
+}
+
+.tree-view>ul>li>.item-name {
+  transition: color 0.1s;
+  color: #777;
+}
+
+.tree-view>ul>li>.parent-name {
+  transition: color 0.1s;
+  color: #444;
+}
+
+.tree-view>ul>li:hover>.parent-name, .tree-view>ul>li:hover>.item-name {
+  color: #fff;
+}
+
+.tree-view>ul>li:hover>i {
+  color: #BBB;
+}
+
+/* Relative to the search bar */
+
+.search-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.search-bar>input {
+  flex: 1;
+  border-style: none;
+  border-left: 6px solid transparent;
+  background-color: transparent;
+  color: #999;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 100%;
+}
+
+.search-bar>input:focus {
+  outline: none;
+}
+
+.search-bar>input::-webkit-input-placeholder {
+  color: #333;
+}
+
+.search-bar>input::placeholder {
+  color: #333;
+}
+
+/* Relative to the ToolBox */
+
+.tool-box>a {
+  transition: color 0.2s;
+  margin: 0 4px;
+}
+
+.tool-box>a:hover {
+  color: #fff;
+}
+
+/* Relative to the configuration's pan */
+
+.configure-view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #121212;
+  padding: 32px;
+}
+
+.configure-view input[type="text"] {
+  margin: 0 12px;
+  background-color: black;
   color: white;
+  padding: 4px;
 }
 
-
-.tree-elt i {
-  margin-right: 6px;
-  color: #63677E;
+.configure-view button {
+  cursor: pointer;
+  padding: 4px;
+  color: white;
+  background-color: #000;
+  transition: all 0.2s;
+  border: 0px solid red;
 }
 
-.folder i{
-  color: #63677E;
-}
-
-.parent {
-  color: #464A5A;
-}
-
-.parent:hover {
-  color: #97ecc5;
-}
-
-.not-folder i{
-  color: #F2F2F2;
+.configure-view button:hover {
+  background-color: #FFF;
+  color: #000;
 }

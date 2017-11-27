@@ -1,89 +1,108 @@
 module Zipper.History
     exposing
         ( History
-        , Direction(..)
         , new
         , push
-        , present
         , backward
         , forward
+        , present
         , hasPast
         , hasFuture
         )
 
+{-| This library defines a generic and navigable history.
+The implementation is based on a ZipperList.
+-}
 
-type Direction
-    = Past
-    | Future
 
-
+{-| Represent a current state with a potential past and a
+potential future.
+-}
 type alias History a =
-    { past : List a
-    , present : a
+    { present : a
+    , past : List a
     , future : List a
     }
 
 
+{-| Initialize an History, with a current state.
+-}
 new : a -> History a
-new data =
-    { past = []
-    , present = data
+new currentState =
+    { present = currentState
+    , past = []
     , future = []
     }
 
 
+{-| Add an entry into the history.
+-}
 push : History a -> a -> History a
-push zipper data =
-    { past = zipper.present :: zipper.past
-    , present = data
+push zipper newCurrentData =
+    { present = newCurrentData
+    , past = zipper.present :: zipper.past
     , future = []
     }
 
 
-rewrite : History a -> a -> History a
-rewrite zipper data =
-    { zipper
-        | past = zipper.present :: zipper.past
-        , present = data
-    }
-
-
-present : History a -> a
-present zipper =
-    zipper.present
-
-
-backward : History a -> History a
+{-| Move left (in the past) in the zipper.
+-}
+backward : History a -> Maybe (History a)
 backward zipper =
     case zipper.past of
         [] ->
-            zipper
+            Nothing
 
-        x :: xs ->
-            { past = xs
-            , present = x
-            , future = zipper.present :: zipper.future
-            }
+        newPresent :: newPast ->
+            Just
+                { present = newPresent
+                , past = newPast
+                , future = zipper.present :: zipper.future
+                }
 
 
-forward : History a -> History a
+{-| Move right (in the future) in the zipper.
+-}
+forward : History a -> Maybe (History a)
 forward zipper =
     case zipper.future of
         [] ->
-            zipper
+            Nothing
 
-        x :: xs ->
-            { past = zipper.present :: zipper.past
-            , present = x
-            , future = xs
-            }
+        newPresent :: newFuture ->
+            Just
+                { present = newPresent
+                , past = zipper.present :: zipper.past
+                , future = newFuture
+                }
 
 
+{-| Return `True` if the zipper has a past, `False` otherwise.
+-}
 hasPast : History a -> Bool
 hasPast zipper =
-    not (List.isEmpty zipper.past)
+    case backward zipper of
+        Nothing ->
+            False
+
+        Just _ ->
+            True
 
 
+{-| Return `True` if the zipper has a future, `False` otherwise.
+-}
 hasFuture : History a -> Bool
 hasFuture zipper =
-    not (List.isEmpty zipper.future)
+    case forward zipper of
+        Nothing ->
+            False
+
+        Just _ ->
+            True
+
+
+{-| Return the current state of the Zipper.
+-}
+present : History a -> a
+present zipper =
+    zipper.present

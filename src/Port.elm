@@ -1,29 +1,66 @@
 port module Port
     exposing
-        ( ls
-        , getDirTree
-        , openFile
-        , openInExplorer
+        ( Terminal
+        , Configuration
+        , getTree
+        , retreiveTree
         , treeMutation
-        , openTerminal
+        , openFile
+        , openInFinder
+        , openInTerminal
+        , changeTerminal
         )
 
-import Path exposing (Path, Tree)
+{-| JavaScript interopt
+-}
+
+import File
 
 
-port ls : Path -> Cmd msg
+{-| Represent the configuration of an application
+-}
+type alias Configuration =
+    { terminal : String }
 
 
-port openFile : Path -> Cmd msg
+{-| Represent a terminal call
+-}
+type alias Terminal =
+    { app : String
+    , path : File.Path
+    }
 
 
-port openInExplorer : Path -> Cmd msg
+{-| Get the tree of files from a Path
+-}
+port getTree : File.Path -> Cmd msg
 
 
-port openTerminal : Path -> Cmd msg
+{-| Retreives the tree as a subscription
+-}
+port retreiveTree : (File.Tree -> msg) -> Sub msg
 
 
-port getDirTree : (Tree -> msg) -> Sub msg
-
-
+{-| Watch the TreeMutation
+-}
 port treeMutation : (Bool -> msg) -> Sub msg
+
+
+{-| Open a file with a default program
+-}
+port openFile : File.Path -> Cmd msg
+
+
+{-| Open a path in a Finder
+-}
+port openInFinder : File.Path -> Cmd msg
+
+
+{-| Open a path in a terminal
+-}
+port openInTerminal : Terminal -> Cmd msg
+
+
+{-| Change the current terminal
+-}
+port changeTerminal : Configuration -> Cmd msg

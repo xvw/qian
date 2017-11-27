@@ -1,4 +1,7 @@
-module Gui.Helper exposing (fa, icon, iconCustom, boolToClass)
+module Component.Helper exposing (fa, icon, iconCustom)
+
+{-| Provide some useful function to write the components
+-}
 
 import Html
     exposing
@@ -9,14 +12,8 @@ import Html
 import Html.Attributes as Attr
 
 
-boolToClass : Bool -> String
-boolToClass f =
-    if f then
-        "enabled"
-    else
-        "disabled"
-
-
+{-| Create a list of attributes to promote a node to an FontAwesome Icon
+-}
 fa : String -> List String -> List (Attribute msg)
 fa icon otherClasses =
     let
@@ -30,11 +27,15 @@ fa icon otherClasses =
         ]
 
 
+{-| Create a FontAwesome Icon
+-}
 icon : String -> Html msg
 icon identifier =
     iconCustom identifier [] []
 
 
+{-| Create a FontAwesome Icon paramterizable
+-}
 iconCustom : String -> List String -> List (Attribute msg) -> Html msg
 iconCustom identifier classes attributes =
     i ((fa identifier classes) ++ attributes) []

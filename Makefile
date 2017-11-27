@@ -13,6 +13,9 @@ run: build
 install:
 	npm install
 
+app: install build
+	./node_modules/.bin/electron-packager .
+
 clean:
 	rm -rf node_modules
 	rm -rf elm-stuff

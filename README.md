@@ -1,4 +1,4 @@
-# Qian
+# Qian (wip)
 
 > Qian is an hackable **micro File explorer** for **OSX**, written in **Elm** and
 > **Electron**. The name **Qian** come from the name of
@@ -6,18 +6,10 @@
 > explorer. (aha get it ?)
 
 
-### Summary
-
-- [Tl;dr](#tldr)
-- [Philosophy](#philosophy)
-- [Features](#features)
-- [Plans](#plans)
-- [Credits](#credits)
-
 ## Tl;dr
 
+![Sample](branding/qian2.gif)
 
-![A tiny gif](http://full.ouplo.com/11/2e/DVAQ.gif)
 
 
 Since I'm on Mac, I mainly use the terminal to navigate my files because
@@ -37,19 +29,6 @@ Just build a useful software for me. The idea is to implement features only
 If you see any changes to the code, do not hesitate to make an issue or pull-request!
 In addition, if a feature seems interesting to implement, let's talk about it in an issue!
 
-## Features
-
-**Qian** supports the mouse and some key shortcuts.
-
-- `Tab` toggle the focus on the searchbar
-- `Enter` open the first folder (if the searchbar is active and filled)
-- `Alt + Enter` open the current directory in a terminal
-- `Alt + Shift + Enter` open the current directory in Finder
-- `Alt + Uparrow` go to the parent folder
-- `Alt + LeftArrow` go to the previous folder (History)
-- `Alt + RightArrow` go to the next folder (History)
-- `Alt + W` toggle the display of hidden files
-
 ## Usage
 
 -  `npm install -g elm` (to install Elm)
@@ -57,19 +36,19 @@ In addition, if a feature seems interesting to implement, let's talk about it in
 -  `make build` to build the application
 -  `make run` to run the buildt application
 -  `make` (a combo of `make build` and `make run`)
+-  `make app` to create a runnable app on OSX
 
-## Plans
-
-A Non exhaustive list of desired features
-
--  [ ] Package the application
--  [ ] Improve the UI/UX
--  [ ] Add a global search mode
--  [ ] Add the capability of create/delete/rename/move/cp files
--  [ ] Improve the key shortcuts
 
 ## Credits
 
+-  [@radmen](https://github.com/radmen): add the support of Fuzzy-Search (using
+   a NoRedink's package)
+-  [@julien-leclercq](https://github.com/julien-leclercq): Makefile improvement
+-  [@xvw](https://github.com/xvw): everything else... (I think :P)
+
+### Tools
 -  [Elm](http://elm-lang.org/) (to have a nice language)
 -  [Electron](https://electron.atom.io/) (to have a window !)
 -  [Font Awesome](http://fontawesome.io/) (for the icon in the UI)
+-  [NoRedInk](http://package.elm-lang.org/packages/NoRedInk/elm-simple-fuzzy/latest)
+   (for the Fuzzy Searching)
