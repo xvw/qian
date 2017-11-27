@@ -3,14 +3,14 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
 ::selection {
-background:transparent;
+  background: transparent;
 }
-
 
 input::selection {
   background-color: #FFF;
@@ -29,12 +29,12 @@ input::selection {
 }
 
 body {
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    height: 100vh;
-    background-color: #010101;
-    color: #555;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  height: 100vh;
+  background-color: #151515;
+  color: #555;
 }
 
 a {
@@ -63,7 +63,6 @@ footer {
   flex-direction: row;
 }
 
-
 /* Relative to breadcrumb */
 
 .breadcrumb {
@@ -71,102 +70,103 @@ footer {
   font-family: 'Ubuntu Mono', monospace;
 }
 
-.breadcrumb > .crumb > i {
+.breadcrumb>.crumb>i {
   padding: 0 8px;
 }
 
-.breadcrumb > .crumb > a {
+.breadcrumb>.crumb>a {
   transition: color 0.2s;
 }
 
-.breadcrumb > .crumb > a:hover {
+.breadcrumb>.crumb>a:hover {
   color: #fff;
 }
 
-.breadcrumb > .crumb > .current {
+.breadcrumb>.crumb>.current {
   color: #999999;
 }
 
 /* Relative to the two history buttons */
 
-.history-buttons > i {
+.history-buttons>i {
   margin-left: 4px;
   transition: color 0.2s;
 }
-.history-buttons > .disabled {
+
+.history-buttons>.disabled {
   color: #333;
   cursor: default;
 }
 
-.history-buttons > .enabled {
+.history-buttons>.enabled {
   color: #999;
   cursor: pointer;
 }
 
-.history-buttons > .enabled:hover {
+.history-buttons>.enabled:hover {
   color: #fff;
 }
 
 /* Relative to the tree view */
+
 .tree-view {
   flex: 1;
   padding: 8px;
   overflow: auto;
 }
 
-.tree-view > ul {
+.tree-view>ul {
   padding: 0;
   margin: 0;
 }
 
-.tree-view > ul > li {
+.tree-view>ul>li {
   list-style: none;
   padding: 3px 8px;
   margin: 0;
   cursor: pointer;
 }
 
-.tree-view > ul > li > i {
+.tree-view>ul>li>i {
   transition: color 0.1s;
   margin-right: 12px;
 }
 
-.tree-view > ul > li > .directory {
+.tree-view>ul>li>.directory {
   color: #444;
 }
 
-.tree-view > ul > li > .file {
+.tree-view>ul>li>.file {
   color: #888;
 }
 
-
-.tree-view > ul > li > .item-name {
+.tree-view>ul>li>.item-name {
   transition: color 0.1s;
   color: #777;
 }
 
-.tree-view > ul > li > .parent-name {
+.tree-view>ul>li>.parent-name {
   transition: color 0.1s;
   color: #444;
 }
 
-.tree-view > ul > li:hover > .parent-name,
-.tree-view > ul > li:hover > .item-name {
+.tree-view>ul>li:hover>.parent-name, .tree-view>ul>li:hover>.item-name {
   color: #fff;
 }
 
-.tree-view > ul > li:hover > i {
+.tree-view>ul>li:hover>i {
   color: #BBB;
 }
 
 /* Relative to the search bar */
+
 .search-bar {
   flex: 1;
   display: flex;
   flex-direction: row;
 }
 
-.search-bar > input {
+.search-bar>input {
   flex: 1;
   border-style: none;
   border-left: 6px solid transparent;
@@ -174,35 +174,33 @@ footer {
   color: #999;
   font-family: 'Ubuntu Mono', monospace;
   font-size: 100%;
-
 }
 
-.search-bar > input:focus {
+.search-bar>input:focus {
   outline: none;
 }
 
-.search-bar > input::-webkit-input-placeholder {
+.search-bar>input::-webkit-input-placeholder {
   color: #333;
 }
 
-.search-bar > input::placeholder {
+.search-bar>input::placeholder {
   color: #333;
 }
-
-
 
 /* Relative to the ToolBox */
-.tool-box > a {
+
+.tool-box>a {
   transition: color 0.2s;
   margin: 0 4px;
 }
 
-.tool-box > a:hover {
+.tool-box>a:hover {
   color: #fff;
 }
 
-
 /* Relative to the configuration's pan */
+
 .configure-view {
   position: absolute;
   left: 0;
