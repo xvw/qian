@@ -47,8 +47,10 @@ In addition, if a feature seems interesting to implement, let's talk about it in
 -  [@xvw](https://github.com/xvw): everything else... (I think :P)
 
 ### Tools
+
+-  [Dotgrid](http://wiki.xxiivv.com/#dotgrid) (for the logo)
 -  [Elm](http://elm-lang.org/) (to have a nice language)
 -  [Electron](https://electron.atom.io/) (to have a window !)
 -  [Font Awesome](http://fontawesome.io/) (for the icon in the UI)
--  [NoRedInk](http://package.elm-lang.org/packages/NoRedInk/elm-simple-fuzzy/latest)
+-  [NoRedInk Simple Fuzzy](http://package.elm-lang.org/packages/NoRedInk/elm-simple-fuzzy/latest)
    (for the Fuzzy Searching)
