@@ -14,7 +14,8 @@ function createWindow() {
     backgroundColor: "#000",
     frame: true,
     resizable: true,
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
+    icon: __dirname + '/icon.ico'
   })
   mainWindow.loadURL(`file://${ __dirname }/static/index.html`)
   //mainWindow.webContents.openDevTools()

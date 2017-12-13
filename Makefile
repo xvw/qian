@@ -14,7 +14,7 @@ install:
 	npm install
 
 app: install build
-	./node_modules/.bin/electron-packager .
+	./node_modules/.bin/electron-packager . qian --overwrite --icon=icon.icns
 
 clean:
 	rm -rf node_modules
