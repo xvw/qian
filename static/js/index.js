@@ -9,7 +9,9 @@ import * as childProcess from 'child_process'
 const { shell, remote } = electron
 const { app } = remote
 
-require('./menu.js');
+const Menu = remote.Menu;
+const MenuItem = remote.MenuItem;
+
 
 // A default configuration (actually, it is supported
 // only a Terminal :) )
@@ -44,13 +46,13 @@ function rewriteConfiguration(config) {
   fs.writeFileSync(qianFile, JSON.stringify(config))
 }
 
-
+const configObj = getConfigObject(defaultConfig)
 const homePath = path.resolve(app.getPath('home'));
 
 // Define the flag to be passed to the Elm Program
 const flags = {
   current: homePath,
-  config: getConfigObject(defaultConfig),
+  config: configObj,
   home: homePath,
   root: '/'
 }
@@ -59,13 +61,65 @@ const flags = {
 const container = document.getElementById('app');
 const elmApp = elm.Main.embed(container, flags);
 
+// Application
+
+
+function openInTerminal(app, dir) {
+  childProcess.spawn('open', ['-a', app, dir])
+}
+
 // Ports to Elm Application
 
 let watcher // the file Watcher
+let currentTree = homePath;
+
+const template =
+  [
+    {
+      label: 'qian',
+      submenu: [{role: 'about'}, {role: 'quit'}]
+    },
+    {
+      label: 'Shortcuts',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: 'CmdOrCtrl+R',
+          click: function(item, focusedWindow) {
+            if (focusedWindow) {
+              focusedWindow.reload();
+            }
+          }
+        },
+        {
+          label: 'Open in finder',
+          accelerator: 'CmdOrCtrl+Alt+enter',
+          click: function(item, focusedWindow) {
+            if (focusedWindow) {
+              shell.showItemInFolder(currentTree)
+            }
+          }
+        },
+        {
+          label: 'Open in Terminal',
+          accelerator: 'CmdOrCtrl+enter',
+          click: function(item, focusedWindow) {
+            if (focusedWindow) {
+              openInTerminal(configObj.terminal, currentTree)
+            }
+          }
+        }
+      ]
+    }
+  ];
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
 
 // Watch and get treeFile
 elmApp.ports.getTree.subscribe((pwd) => {
   const dir = path.resolve(pwd)
+  currentTree = dir;
   const tree = fs.readdirSync(dir).map((entry) => {
     const completePath = path.join(dir, entry)
     return {
@@ -100,7 +154,7 @@ elmApp.ports.openInFinder.subscribe((pwd) => {
 
 elmApp.ports.openInTerminal.subscribe((input) => {
   const dir = path.resolve(input.path)
-  childProcess.spawn('open', ['-a', input.app, dir])
+  openInTerminal(input.app, dir)
 });
 
 elmApp.ports.changeTerminal.subscribe((config) => {
