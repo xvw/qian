@@ -19,6 +19,7 @@ subscriptions model =
         [ Port.retreiveTree ChangeTree
         , Port.treeMutation TreeMutation
         , Port.historyNavigation NavigateHistoryFromMenu
+        , Port.jumpToParent ToParentFromMenu
         ]
 
 
@@ -65,6 +66,9 @@ update message model =
 
         NavigateHistoryFromMenu isPast ->
             Action.navigateHistoryFromMenu model isPast
+
+        ToParentFromMenu _ ->
+            Action.toParentFromMenu model
 
         ChangeDefaultTerminal ->
             Action.changeDefaultTerminal model

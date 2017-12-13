@@ -14,6 +14,7 @@ module Action
         , goToTree
         , changeDefaultTerminal
         , navigateHistoryFromMenu
+        , toParentFromMenu
         )
 
 {-| Provide all "action" of the application
@@ -176,6 +177,18 @@ changeDir model newPath =
     changeHistory model (\history -> History.push history newPath)
 
 
+{-| Go to the parent from Electron
+-}
+toParentFromMenu : Model -> ( Model, Cmd Message )
+toParentFromMenu model =
+    case File.parent model.history.present of
+        Nothing ->
+            ( model, Cmd.none )
+
+        Just parent ->
+            changeDir model parent
+
+
 {-| Navigate in the history (pred/next)
 -}
 navigateHistory : Model -> History File.Path -> ( Model, Cmd Message )
@@ -188,6 +201,8 @@ navigateHistory model newHistory =
         ( newModel, Port.getTree (Model.now newModel) )
 
 
+{-| Navigate in the history from Electron
+-}
 navigateHistoryFromMenu : Model -> Bool -> ( Model, Cmd Message )
 navigateHistoryFromMenu model isPast =
     let

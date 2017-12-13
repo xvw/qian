@@ -101,6 +101,15 @@ const template =
           }
         },
         {
+          label: 'Parent',
+          accelerator: 'CmdOrCtrl+Up',
+          click: function(item, focusedWindow) {
+            if (focusedWindow) {
+              elmApp.ports.jumpToParent.send(true)
+            }
+          }
+        },
+        {
           label: 'Open in finder',
           accelerator: 'CmdOrCtrl+Alt+enter',
           click: function(item, focusedWindow) {
