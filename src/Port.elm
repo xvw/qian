@@ -9,6 +9,7 @@ port module Port
         , openInFinder
         , openInTerminal
         , changeTerminal
+        , historyNavigation
         )
 
 {-| JavaScript interopt
@@ -39,6 +40,11 @@ port getTree : File.Path -> Cmd msg
 {-| Retreives the tree as a subscription
 -}
 port retreiveTree : (File.Tree -> msg) -> Sub msg
+
+
+{-| Perform a modification on the history from Electron
+-}
+port historyNavigation : (Bool -> msg) -> Sub msg
 
 
 {-| Watch the TreeMutation

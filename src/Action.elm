@@ -13,6 +13,7 @@ module Action
         , goToSettings
         , goToTree
         , changeDefaultTerminal
+        , navigateHistoryFromMenu
         )
 
 {-| Provide all "action" of the application
@@ -185,6 +186,23 @@ navigateHistory model newHistory =
                 |> cleanSearchField
     in
         ( newModel, Port.getTree (Model.now newModel) )
+
+
+navigateHistoryFromMenu : Model -> Bool -> ( Model, Cmd Message )
+navigateHistoryFromMenu model isPast =
+    let
+        f =
+            if isPast then
+                History.backward
+            else
+                History.forward
+    in
+        case f model.history of
+            Just x ->
+                navigateHistory model x
+
+            Nothing ->
+                ( model, Cmd.none )
 
 
 {-| Change the current tree

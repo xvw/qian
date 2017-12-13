@@ -83,11 +83,20 @@ const template =
       label: 'Shortcuts',
       submenu: [
         {
-          label: 'Reload',
-          accelerator: 'CmdOrCtrl+R',
+          label: 'Pred',
+          accelerator: 'CmdOrCtrl+Left',
           click: function(item, focusedWindow) {
             if (focusedWindow) {
-              focusedWindow.reload();
+              elmApp.ports.historyNavigation.send(true)
+            }
+          }
+        },
+        {
+          label: 'Next',
+          accelerator: 'CmdOrCtrl+Right',
+          click: function(item, focusedWindow) {
+            if (focusedWindow) {
+              elmApp.ports.historyNavigation.send(false)
             }
           }
         },

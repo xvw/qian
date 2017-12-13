@@ -18,6 +18,7 @@ subscriptions model =
     Sub.batch
         [ Port.retreiveTree ChangeTree
         , Port.treeMutation TreeMutation
+        , Port.historyNavigation NavigateHistoryFromMenu
         ]
 
 
@@ -61,6 +62,9 @@ update message model =
 
         GoToTree ->
             Action.goToTree model
+
+        NavigateHistoryFromMenu isPast ->
+            Action.navigateHistoryFromMenu model isPast
 
         ChangeDefaultTerminal ->
             Action.changeDefaultTerminal model

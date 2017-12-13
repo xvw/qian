@@ -34,7 +34,6 @@ searchInput content =
     input
         [ Attr.placeholder "search an item ..."
         , Attr.value content
-        , Attr.autofocus True
         , onInput RecordSearchState
         ]
         []
