@@ -20,4 +20,6 @@ type Message
     | RecordConfigTerminal String -- Track the configuration changement
     | GoToSettings -- Go to the user settings
     | GoToTree -- Return to the treeView
+    | NavigateHistoryFromMenu Bool -- Navigation from Electron
+    | ToParentFromMenu Bool -- Go to parent from Electron
     | ChangeDefaultTerminal -- Change the default terminal
