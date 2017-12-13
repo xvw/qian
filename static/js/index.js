@@ -9,6 +9,7 @@ import * as childProcess from 'child_process'
 const { shell, remote } = electron
 const { app } = remote
 
+require('./menu.js');
 
 // A default configuration (actually, it is supported
 // only a Terminal :) )
@@ -44,11 +45,13 @@ function rewriteConfiguration(config) {
 }
 
 
+const homePath = path.resolve(app.getPath('home'));
+
 // Define the flag to be passed to the Elm Program
 const flags = {
-  current: path.resolve("."),
+  current: homePath,
   config: getConfigObject(defaultConfig),
-  home: path.resolve(app.getPath('home')),
+  home: homePath,
   root: '/'
 }
 
