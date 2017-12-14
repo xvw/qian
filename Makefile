@@ -14,8 +14,11 @@ install:
 	npm install
 
 app: install build
+	rm -rf qian-darwin-x64.zip
 	./node_modules/.bin/electron-packager . qian --overwrite --icon=icon.icns
+	zip -r qian-darwin-x64.zip qian-darwin-x64
 
 clean:
+	rm -rf qian-darwin-x64.zip
 	rm -rf node_modules
 	rm -rf elm-stuff
