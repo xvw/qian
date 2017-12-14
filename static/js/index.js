@@ -84,7 +84,7 @@ const template =
       submenu: [
         {
           label: 'Pred',
-          accelerator: 'CmdOrCtrl+Left',
+          accelerator: 'CmdOrCtrl+<',
           click: function(item, focusedWindow) {
             if (focusedWindow) {
               elmApp.ports.historyNavigation.send(true)
@@ -93,7 +93,7 @@ const template =
         },
         {
           label: 'Next',
-          accelerator: 'CmdOrCtrl+Right',
+          accelerator: 'CmdOrCtrl+>',
           click: function(item, focusedWindow) {
             if (focusedWindow) {
               elmApp.ports.historyNavigation.send(false)
@@ -102,7 +102,7 @@ const template =
         },
         {
           label: 'Parent',
-          accelerator: 'CmdOrCtrl+Up',
+          accelerator: 'CmdOrCtrl+Shift+Space',
           click: function(item, focusedWindow) {
             if (focusedWindow) {
               elmApp.ports.jumpToParent.send(true)
