@@ -20,4 +20,5 @@ elm-stuff
 node_modules
 dist/bundle.js
 qian-darwin-x64
+qian-darwin-x64.zip
 .tool-versions

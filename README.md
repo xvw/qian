@@ -43,12 +43,9 @@ In addition, if a feature seems interesting to implement, let's talk about it in
 -  `Tab` : toggle the focus on the searchbar
 -  `Cmd + Alt + Enter` : Open the current folder in finder
 -  `Cmd + Enter` : Open the current folder in a terminal
-
-> those shortcuts works only if the search bar does not have the focus
-
--  `Cmd + Left` : Go on the pred view (if it exists)
--  `Cmd + Right` : Go on the next view (if it exists)
--  `Cmd + Up` : Go to the parent (if it exists)
+-  `Cmd + <` : Go on the pred view (if it exists)
+-  `Cmd + >` : Go on the next view (if it exists)
+-  `Cmd + Shift + Space` : Go to the parent (if it exists)
 
 ## About the search bar
 
