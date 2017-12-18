@@ -15,6 +15,7 @@ function createWindow() {
     frame: true,
     resizable: true,
     autoHideMenuBar: true,
+    titleBarStyle: 'hidden',
     icon: __dirname + '/icon.ico'
   })
   mainWindow.loadURL(`file://${ __dirname }/static/index.html`)

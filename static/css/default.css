@@ -49,6 +49,14 @@ a {
   flex-direction: column;
 }
 
+.menu-app {
+  height: 24px;
+  background-color: #181818;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
 header {
   padding: 8px;
   background-color: black;

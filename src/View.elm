@@ -34,7 +34,8 @@ global model =
     in
         div
             [ Attr.class "inner-app" ]
-            [ header []
+            [ div [ Attr.class "menu-app" ] []
+            , header []
                 [ Breadcrumb.render currentPath
                 , HistoryButtons.render model.history
                 ]
