@@ -7,10 +7,7 @@ import elm from '../../src/Main.elm'
 import * as childProcess from 'child_process'
 
 const { shell, remote } = electron
-const { app } = remote
-
-const Menu = remote.Menu;
-const MenuItem = remote.MenuItem;
+const { app, Menu, MenuItem } = remote
 
 
 // A default configuration (actually, it is supported
