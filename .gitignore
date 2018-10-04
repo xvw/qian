@@ -15,10 +15,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
 elm-stuff
 node_modules
-dist/bundle.js
-qian-darwin-x64
-qian-darwin-x64.zip
-.tool-versions
+_build
