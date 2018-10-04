@@ -1,4 +1,4 @@
-# Qian (wip)
+# Qian
 
 > Qian is an hackable **micro File explorer**, written in **Elm**
 > and **Electron**. The name **Qian** come from the name of

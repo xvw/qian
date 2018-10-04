@@ -1,28 +1,32 @@
 {
-  "name": "qian",
-  "version": "2.0.0",
-  "description": "A small file browser",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xvw/qian.git"
-  },
-  "keywords": [
-    "explorer",
-    "elm",
-    "electron",
-    "file"
-  ],
-  "author": "xvw <xaviervdw@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/xvw/qian/issues"
-  },
-  "homepage": "https://github.com/xvw/qian#readme",
-  "dependencies": {
-    "electron": "^3.0.2"
-  }
+    "name": "qian",
+    "version": "2.0.0",
+    "description": "A small file browser",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xvw/qian.git"
+    },
+    "keywords": [
+        "explorer",
+        "elm",
+        "electron",
+        "file"
+    ],
+    "author": "xvw <xaviervdw@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/xvw/qian/issues"
+    },
+    "homepage": "https://github.com/xvw/qian#readme",
+    "dependencies": {},
+    "devDependencies": {
+        "electron": "^3.0.2",
+        "electron-packager": "^12.2.0",
+        "webpack": "^4.20.2"
+    }
 }
