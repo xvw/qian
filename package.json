@@ -5,7 +5,7 @@
     "main": "main.js",
     "scripts": {
         "start": "electron .",
-        "elm": "elm make src/Main.elm --output=elm_artifact.js",
+        "elm": "elm make src/Main.elm --output=src/js/elm_artifact.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {

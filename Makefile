@@ -1,6 +1,9 @@
 run:
 	npm start
 
+build:
+	npm run elm
+
 install:
 	mkdir -p _build
 	npm install
