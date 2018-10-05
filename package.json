@@ -5,6 +5,7 @@
     "main": "main.js",
     "scripts": {
         "start": "electron .",
+        "elm": "elm make src/Main.elm --output=elm_artifact.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -27,6 +28,6 @@
     "devDependencies": {
         "electron": "^3.0.2",
         "electron-packager": "^12.2.0",
-        "webpack": "^4.20.2"
+        "elm": "^0.19.0-bugfix2"
     }
 }
