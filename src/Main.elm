@@ -5,4 +5,4 @@ import Html exposing (Html, text)
 
 main : Html message
 main =
-    text "Hello World !"
+    text "foo"
