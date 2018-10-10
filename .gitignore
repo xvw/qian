@@ -19,3 +19,4 @@ elm-stuff
 node_modules
 _build
 *_artifact.js
+_releases

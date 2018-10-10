@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ -z $1 ]
+then
+    make build_linux
+    make build_darwin
+    make build_win32
+    make tarball_linux
+    make tarball_darwin
+    make tarball_win32
+else
+    make build_$1
+    make tarball_$1
+fi

@@ -15,7 +15,7 @@ const createWindow = function() {
     autoHideMenuBar: true,
     titleBarStyle: "hidden"
   });
-  mainWindow.loadURL(`file://${__dirname}/html/qian.html`);
+  mainWindow.loadURL(`file://${__dirname}/src/html/qian.html`);
   mainWindow.webContents.openDevTools();
   mainWindow.on("closed", function() {
     mainWindow = null;

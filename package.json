@@ -4,9 +4,11 @@
     "description": "A small file browser",
     "main": "main.js",
     "scripts": {
-        "start": "electron _build/main.js",
-        "elm": "elm make src/Main.elm --output=_build/js/elm_artifact.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "electron main.js",
+        "elm": "elm make src/Main.elm --output=src/js/elm_artifact.js",
+        "build_darwin": "electron-packager . qian --platform=darwin --arch=x64 --out _build --overwrite --ignore='_releases|_build|elm\\-stuff'",
+        "build_linux": "electron-packager . qian --platform=linux --arch=x64 --out _build --overwrite --ignore='_releases|_build|elm\\-stuff'",
+        "build_win32": "electron-packager . qian --platform=win32 --arch=x64 --out _build --overwrite--ignore='_releases|_build|elm\\-stuff'"
     },
     "repository": {
         "type": "git",
