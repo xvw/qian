@@ -1,26 +1,18 @@
 module Zipper.History exposing
     ( History
     , backward
+    , fold
     , forward
     , hasFuture
     , hasPast
     , isSingleton
+    , map
     , new
     , present
     , push
     )
 
-{-| This library defines a generic and navigable history.
-The implementation is based on a ZipperList.
 
-This "structure" is useful to manage "history".
-
--}
-
-
-{-| Represent a current state with a potential past and a
-potential future.
--}
 type History a
     = History
         { present : a
@@ -38,8 +30,6 @@ make current past future =
         }
 
 
-{-| Initialize an History, with a current state.
--}
 new : a -> History a
 new currentState =
     make
@@ -48,8 +38,6 @@ new currentState =
         []
 
 
-{-| Add an entry into the history.
--}
 push : History a -> a -> History a
 push (History zipper) newCurrentData =
     make
@@ -58,8 +46,6 @@ push (History zipper) newCurrentData =
         []
 
 
-{-| Move left (in the past) in the zipper.
--}
 backward : History a -> Maybe (History a)
 backward (History zipper) =
     case zipper.past of
@@ -75,8 +61,6 @@ backward (History zipper) =
                 )
 
 
-{-| Move right (in the future) in the zipper.
--}
 forward : History a -> Maybe (History a)
 forward (History zipper) =
     case zipper.future of
@@ -91,8 +75,6 @@ forward (History zipper) =
                 )
 
 
-{-| Return `True` if the zipper has a past, `False` otherwise.
--}
 hasPast : History a -> Bool
 hasPast zipper =
     case backward zipper of
@@ -103,8 +85,6 @@ hasPast zipper =
             True
 
 
-{-| Return `True` if the zipper has a future, `False` otherwise.
--}
 hasFuture : History a -> Bool
 hasFuture zipper =
     case forward zipper of
@@ -115,15 +95,27 @@ hasFuture zipper =
             True
 
 
-{-| Return the current state of the Zipper.
--}
 present : History a -> a
 present (History zipper) =
     zipper.present
 
 
-{-| Return `True` if the zipper contains one values, `False` otherwise.
--}
 isSingleton : History a -> Bool
 isSingleton zipper =
     not (hasPast zipper || hasFuture zipper)
+
+
+map : (a -> b) -> History a -> History b
+map f (History zipper) =
+    make
+        (f zipper.present)
+        (List.map f zipper.past)
+        (List.map f zipper.future)
+
+
+fold : (a -> b -> b) -> b -> History a -> b
+fold reducer init (History zipper) =
+    zipper.past
+        |> List.foldr reducer init
+        |> reducer zipper.present
+        |> (\x -> List.foldl reducer x zipper.future)
