@@ -16,7 +16,7 @@ const createWindow = function() {
     titleBarStyle: "hidden",
     nodeIntegration: true,
     webPreferences: {
-      nodeIntegration: false
+      nodeIntegration: true
     }
   });
   mainWindow.loadURL(`file://${__dirname}/src/html/qian.html`);

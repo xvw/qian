@@ -1,16 +1,15 @@
-// console.log(electron);
+import electron from "electron";
+import path from "path";
+import * as fs from "fs";
 
-// const electron = require("electron");
-// const path = require("path");
-
-// const { shell, remote } = electron;
-// const { app, Menu, MenuItem } = remote;
-
-// const home = path.resolve(app.getPath("home"));
-// const node = document.getElementById("app");
-
-// console.log(home);
 import { Elm } from "./elm_artifact.js";
+
+const { shell, remote } = electron;
+const { app } = remote;
+
+const home = path.resolve(app.getPath("home"));
+
+console.log(home);
 
 const node = document.getElementById("app");
 const elmApp = Elm.Main.init({
