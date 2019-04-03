@@ -14,6 +14,7 @@ clean:
 	rm -rf _releases
 	rm -rf elm-stuff
 	rm -rf node_modules
+	rm src/js/elm_artifact.js
 
 prepare_release: install build
 

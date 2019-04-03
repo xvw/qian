@@ -19,4 +19,5 @@ elm-stuff
 node_modules
 _build
 *_artifact.js
+bundle.js
 _releases

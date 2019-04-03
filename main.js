@@ -1,5 +1,4 @@
 const electron = require("electron");
-
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
@@ -15,7 +14,7 @@ const createWindow = function() {
     resizable: true,
     autoHideMenuBar: true,
     titleBarStyle: "hidden",
-    nodeIntegration: false,
+    nodeIntegration: true,
     webPreferences: {
       nodeIntegration: false
     }

@@ -3,13 +3,6 @@
   "version": "2.0.0",
   "description": "A small file browser",
   "main": "main.js",
-  "scripts": {
-    "start": "electron main.js",
-    "elm": "elm make src/elm/Main.elm --optimize --output=src/js/elm_artifact.js",
-    "build_darwin": "electron-packager . qian --platform=darwin --arch=x64 --out _build --overwrite --ignore='_releases|_build|elm\\-stuff|src/elm'",
-    "build_linux": "electron-packager . qian --platform=linux --arch=x64 --out _build --overwrite --ignore='_releases|_build|elm\\-stuff|src/elm'",
-    "build_win32": "electron-packager . qian --platform=win32 --arch=x64 --out _build --overwrite--ignore='_releases|_build|elm\\-stuff|src/elm'"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xvw/qian.git"
@@ -29,6 +22,20 @@
   "devDependencies": {
     "electron": "^4.1.3",
     "electron-packager": "^13.1.1",
-    "elm": "^0.19.0-bugfix6"
+    "elm": "^0.19.0-bugfix6",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "qian": {
+    "elm": "src/js/elm_artifact.js",
+    "ignore": "'_releases|_build|elm\\-stuff|src/elm|src/js|elm.json|Makefile|node_modules|README.md|webpack.config.js|release'"
+  },
+  "scripts": {
+    "start": "electron main.js",
+    "elm": "elm make src/elm/Main.elm --optimize --output=$npm_package_qian_elm",
+    "postelm": "webpack --mode production",
+    "build_darwin": "electron-packager . qian --platform=darwin --arch=x64 --out _build --overwrite --ignore=$npm_package_qian_ignore",
+    "build_linux": "electron-packager . qian --platform=linux --arch=x64 --out _build --overwrite --ignore=$npm_package_qian_ignore",
+    "build_win32": "electron-packager . qian --platform=win32 --arch=x64 --out _build --overwrite--ignore=$npm_package_qian_ignore"
   }
 }
