@@ -1,4 +1,4 @@
-.PHONY: run build install clean prepeare_release releases %_tarball
+.PHONY: run build install clean prepeare_release releases tarball_%
 
 run: build
 	npm start
@@ -29,3 +29,5 @@ build_temp_dir:
 
 tarball_%: qian-%-x64.tar
 	@echo "$(<) : done"
+
+releases: build_linux build_darwin build_win32
