@@ -9,7 +9,3 @@ Contributions are welcome. If you discover bugs or issues, or have ideas for imp
 - Open an issue with a clear title
 - Write as grammatically correct as you can in the description.
 
-## Pull Request
-
-- Use git-flow : http://nvie.com/posts/a-successful-git-branching-model/
-
