@@ -5,7 +5,7 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 
 const createWindow = function() {
-  console.log("start");
+  console.log("start :v");
   mainWindow = new BrowserWindow({
     width: 960,
     height: 640,
@@ -13,7 +13,11 @@ const createWindow = function() {
     frame: true,
     resizable: true,
     autoHideMenuBar: true,
-    titleBarStyle: "hidden"
+    titleBarStyle: "hidden",
+    nodeIntegration: false,
+    webPreferences: {
+      nodeIntegration: false
+    }
   });
   mainWindow.loadURL(`file://${__dirname}/src/html/qian.html`);
   mainWindow.webContents.openDevTools();
